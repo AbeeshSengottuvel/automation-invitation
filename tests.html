@@ -14,25 +14,33 @@
     <script src="data/test-cases-data.js"></script>
     <style>
         .tests-body { background: var(--bg); }
-        .hero-title-clean { font-size: clamp(40px, 8vw, 96px); font-weight: 700; letter-spacing: -0.04em; margin-bottom: var(--space-16); background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
+        .hero-title-clean { 
+            font-size: clamp(38px, 6vw, 76px); 
+            font-weight: 700; 
+            letter-spacing: -0.03em; 
+            margin-bottom: var(--space-16); 
+            background: var(--accent-gradient); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
         /* Filter and Search Bar */
         .filter-section {
             background: var(--card);
             border: 1px solid var(--line);
             border-radius: var(--radius-lg);
-            padding: var(--space-24);
-            margin-bottom: var(--space-48);
+            padding: 24px 28px;
+            margin-bottom: 32px;
             box-shadow: var(--shadow-1);
         }
         .search-box {
             position: relative;
-            margin-bottom: var(--space-20, 20px);
+            margin-bottom: 20px;
         }
         .search-input {
             width: 100%;
             padding: 14px 20px 14px 44px;
-            font-size: 16px;
+            font-size: 15px;
             font-family: inherit;
             border-radius: var(--radius-pill);
             border: 1px solid var(--line);
@@ -98,81 +106,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 var(--space-8);
-            margin-bottom: var(--space-24);
+            padding: 0 4px;
+            margin-bottom: 20px;
             font-size: 14px;
             color: var(--text-muted);
         }
 
-        /* Interactive TC Row */
-        .tc-row {
-            cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
-            border-radius: var(--radius-md);
-            padding: var(--space-24);
-            margin-bottom: var(--space-12);
-            border: 1px solid var(--line);
-            background: var(--card);
-        }
-        .tc-row:hover {
-            background: var(--bg-alt);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-1);
-        }
-        .tc-row.expanded {
-            border-color: rgba(10, 132, 255, 0.4);
-            box-shadow: var(--shadow-2);
-        }
-        .tc-header-grid {
-            display: grid;
-            grid-template-columns: 140px 1fr 140px 32px;
-            gap: var(--space-24);
-            align-items: center;
-        }
-        .tc-expand-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            transition: transform 0.3s ease;
-        }
-        .tc-row.expanded .tc-expand-btn svg {
-            transform: rotate(180deg);
-        }
-
-        /* Expanded Details Pane */
-        .tc-details {
-            display: none;
-            margin-top: var(--space-20, 20px);
-            padding-top: var(--space-20, 20px);
-            border-top: 1px solid var(--line);
-        }
-        .tc-row.expanded .tc-details {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
-            font-size: 14px;
-        }
+        /* Detail cards inside expansion */
         .detail-card {
             background: var(--bg);
             border: 1px solid var(--line);
             border-radius: var(--radius-sm);
-            padding: 14px 18px;
+            padding: 16px 20px;
         }
         .detail-card h4 {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.06em;
             color: var(--text-muted);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
         .detail-card p {
             margin: 0;
@@ -182,31 +135,7 @@
         }
         .automation-tip {
             border-left: 3px solid #0a84ff;
-            background: rgba(10, 132, 255, 0.05);
-        }
-
-        @media (max-width: 768px) {
-            .tc-header-grid {
-                grid-template-columns: 1fr auto;
-                gap: 12px;
-            }
-            .tc-meta {
-                grid-column: 1 / -1;
-                flex-direction: row;
-                justify-content: space-between;
-                width: 100%;
-            }
-            .tc-content {
-                grid-column: 1 / 2;
-            }
-            .tc-priority {
-                grid-column: 1 / 2;
-                justify-content: flex-start;
-            }
-            .tc-expand-btn {
-                grid-column: 2 / 3;
-                grid-row: 2 / 4;
-            }
+            background: rgba(10, 132, 255, 0.04);
         }
     </style>
 </head>
@@ -240,18 +169,18 @@
     </nav>
 
     <main id="main">
-        <section class="section" style="padding-top: 140px; padding-bottom: 40px; text-align: center;">
+        <section class="section" style="padding-top: 140px; padding-bottom: 36px; text-align: center;">
             <div class="container" style="max-width: 900px;">
                 <p class="eyebrow fade-up">Competition Specification</p>
                 <h1 class="hero-title-clean fade-up">The Gauntlet.</h1>
-                <p class="subhead fade-up" style="margin: 0 auto; font-size: 20px; color: var(--text-muted); line-height: 1.4;">
-                    40 precision-engineered test cases designed to test the architectural limits of your framework. Click any test to inspect steps and automation tips.
+                <p class="subhead fade-up" style="margin: 0 auto; font-size: 19px; color: var(--text-muted); line-height: 1.45; max-width: 680px;">
+                    40 precision-engineered test cases designed to test the architectural limits of your framework. Click any card to inspect validation goals, pre-conditions, and tips.
                 </p>
             </div>
         </section>
 
         <section class="section" style="padding-bottom: 120px;">
-            <div class="container" style="max-width: 1000px;">
+            <div class="container" style="max-width: 1040px;">
                 <!-- Filter & Search Controls -->
                 <div class="filter-section">
                     <div class="search-box">
@@ -278,7 +207,7 @@
                 <div class="stats-bar">
                     <span id="tests-count-display">Showing 40 of 40 test cases</span>
                     <a href="Automation_Arena_Test_Cases.xlsx" download class="text-link" style="font-size: 13px;">
-                        Download raw Excel sheet &darr;
+                        Download Excel (.xlsx) &darr;
                     </a>
                 </div>
 
@@ -410,9 +339,9 @@
             function renderTests(items) {
                 if (items.length === 0) {
                     container.innerHTML = `
-                        <div class="card glass text-center" style="padding: 48px 24px;">
-                            <p style="font-size: 18px; margin-bottom: 8px;">No matching test cases found.</p>
-                            <p class="text-muted" style="font-size: 14px;">Try changing your search terms or clearing the filter.</p>
+                        <div class="card glass text-center" style="padding: 48px 24px; border-radius: var(--radius-md);">
+                            <p style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">No matching test cases found.</p>
+                            <p class="text-muted" style="font-size: 14px; margin: 0;">Try adjusting your keywords or clearing the active filters.</p>
                         </div>
                     `;
                     return;
@@ -429,44 +358,46 @@
                     const stepResult = tc['Step Expected Result'] || 'Expected behavior matches test specifications';
 
                     return `
-                        <article class="tc-row" data-id="${tc.TC_ID}" tabindex="0" role="button" aria-expanded="false" aria-label="${tc.TC_ID}: ${tc['Test Case Name']}">
-                            <div class="tc-header-grid">
-                                <div class="tc-meta">
-                                    <span class="tc-id">${tc.TC_ID}</span>
-                                    <span class="chip" style="font-size: 11px; padding: 2px 8px;">${tc.Module}</span>
+                        <article class="tc-card" data-id="${tc.TC_ID}" tabindex="0" role="button" aria-expanded="false" aria-label="${tc.TC_ID}: ${tc['Test Case Name']}">
+                            <div class="tc-card-header">
+                                <div class="tc-left-col">
+                                    <span class="tc-id-badge">${tc.TC_ID}</span>
+                                    <span class="tc-module-chip">${tc.Module}</span>
                                 </div>
-                                <div class="tc-content">
-                                    <h3 class="tc-title" style="font-size: 18px; margin-bottom: 4px;">${tc['Test Case Name']}</h3>
-                                    <p class="tc-desc" style="font-size: 14px;">${tc['Description (Validation Goal)']}</p>
+                                <div class="tc-main-col">
+                                    <h3 class="tc-title">${tc['Test Case Name']}</h3>
+                                    <p class="tc-desc">${tc['Description (Validation Goal)']}</p>
                                 </div>
-                                <div class="tc-priority">
-                                    <span class="indicator" style="background: ${pColor}; box-shadow: 0 0 8px ${pColor};"></span>
-                                    <span>${tc.Priority}</span>
-                                </div>
-                                <div class="tc-expand-btn">
-                                    <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                <div class="tc-right-col">
+                                    <div class="tc-priority-badge">
+                                        <span class="tc-priority-dot" style="background: ${pColor}; box-shadow: 0 0 6px ${pColor};"></span>
+                                        <span>${tc.Priority}</span>
+                                    </div>
+                                    <div class="tc-chevron" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                    </div>
                                 </div>
                             </div>
                             
-                            <div class="tc-details">
-                                <div class="details-grid">
+                            <div class="tc-details-pane">
+                                <div class="tc-grid-2x2">
                                     <div class="detail-card">
                                         <h4>Step & Expected Result</h4>
                                         <p><strong>Step:</strong> ${stepDesc}</p>
-                                        <p style="margin-top: 6px;"><strong>Result:</strong> ${stepResult}</p>
+                                        <p style="margin-top: 8px;"><strong>Result:</strong> ${stepResult}</p>
                                     </div>
                                     <div class="detail-card">
                                         <h4>Pre / Post Conditions</h4>
                                         <p><strong>Pre:</strong> ${preCond}</p>
-                                        <p style="margin-top: 6px;"><strong>Post:</strong> ${postCond}</p>
+                                        <p style="margin-top: 8px;"><strong>Post:</strong> ${postCond}</p>
                                     </div>
                                     <div class="detail-card">
                                         <h4>Test Data & Type</h4>
                                         <p><strong>Type:</strong> ${tc['Test Type'] || 'Automated Functional'}</p>
-                                        <p style="margin-top: 6px;"><strong>Data:</strong> ${testData}</p>
+                                        <p style="margin-top: 8px;"><strong>Data:</strong> ${testData}</p>
                                     </div>
                                     <div class="detail-card automation-tip">
-                                        <h4>⚡ Automation Tip</h4>
+                                        <h4>⚡ Automation Recommendation</h4>
                                         <p>${tip}</p>
                                     </div>
                                 </div>
@@ -476,14 +407,14 @@
                 }).join('');
 
                 // Expand/collapse handling
-                container.querySelectorAll('.tc-row').forEach(row => {
+                container.querySelectorAll('.tc-card').forEach(card => {
                     const toggle = () => {
-                        const isExpanded = row.classList.contains('expanded');
-                        row.classList.toggle('expanded', !isExpanded);
-                        row.setAttribute('aria-expanded', !isExpanded);
+                        const isExpanded = card.classList.contains('expanded');
+                        card.classList.toggle('expanded', !isExpanded);
+                        card.setAttribute('aria-expanded', !isExpanded);
                     };
-                    row.addEventListener('click', toggle);
-                    row.addEventListener('keydown', (e) => {
+                    card.addEventListener('click', toggle);
+                    card.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
                             toggle();
