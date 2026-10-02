@@ -1,17 +1,26 @@
 {
-  "updatedAt": "2026-10-09T15:30:00Z",
+  "updatedAt": "2026-10-02T19:04:03.024Z",
   "players": [
     {
-      "username": "AbeeshSengottuvel",
-      "displayName": "Abeesh",
+      "username": "robot-master",
+      "displayName": "Robo Tester",
       "rank": 1,
       "testsPassed": 40,
       "testsTotal": 40,
-      "durationSec": 125,
+      "durationSec": 120,
       "runs": [
-        { "passed": 40, "durationSec": 125 },
-        { "passed": 40, "durationSec": 127 },
-        { "passed": 40, "durationSec": 124 }
+        {
+          "passed": 40,
+          "durationSec": 120
+        },
+        {
+          "passed": 40,
+          "durationSec": 122
+        },
+        {
+          "passed": 40,
+          "durationSec": 118
+        }
       ],
       "score": {
         "coverage": 40,
@@ -19,98 +28,161 @@
         "design": 15,
         "reporting": 10,
         "cicd": 10,
+        "bonus": 4,
+        "manual": 20,
         "speed": 5,
-        "bonus": 24,
-        "manual": 15,
-        "total": 139
+        "total": 124
       },
-      "powerUps": ["docker", "ci", "report", "pom", "parallel", "a11y"],
-      "tools": ["Playwright", "JavaScript"],
-      "badges": ["Perfect 40", "Speed Demon", "Pipeline Pro"],
+      "powerUps": [
+        "ci"
+      ],
+      "tools": [
+        "Robot Framework"
+      ],
+      "badges": [
+        "Perfect 40",
+        "Speed Demon",
+        "Stable as a Rock",
+        "Pipeline Pro"
+      ],
       "status": "success"
     },
     {
-      "username": "robot-master",
-      "displayName": "Robo Tester",
+      "username": "AbeeshSengottuvel",
+      "displayName": "Abeesh",
       "rank": 2,
-      "testsPassed": 38,
+      "testsPassed": 40,
       "testsTotal": 40,
-      "durationSec": 180,
+      "durationSec": 120,
       "runs": [
-        { "passed": 38, "durationSec": 180 },
-        { "passed": 37, "durationSec": 185 },
-        { "passed": 38, "durationSec": 178 }
+        {
+          "passed": 40,
+          "durationSec": 120
+        },
+        {
+          "passed": 40,
+          "durationSec": 122
+        },
+        {
+          "passed": 40,
+          "durationSec": 118
+        }
       ],
       "score": {
-        "coverage": 38,
-        "stability": 19.5,
-        "design": 12,
-        "reporting": 8,
-        "cicd": 7,
-        "speed": 3,
-        "bonus": 16,
-        "manual": 20,
-        "total": 123.5
+        "coverage": 40,
+        "stability": 20,
+        "design": 15,
+        "reporting": 10,
+        "cicd": 10,
+        "bonus": 4,
+        "manual": 15,
+        "speed": 5,
+        "total": 119
       },
-      "powerUps": ["ci", "report", "data", "bdd"],
-      "tools": ["Robot Framework", "Python"],
-      "badges": ["Stable as a Rock"],
+      "powerUps": [
+        "ci"
+      ],
+      "tools": [
+        "Playwright"
+      ],
+      "badges": [
+        "Perfect 40",
+        "Speed Demon",
+        "Stable as a Rock",
+        "Pipeline Pro"
+      ],
       "status": "success"
     },
     {
       "username": "johndoe123",
       "displayName": "John D.",
       "rank": 3,
-      "testsPassed": 35,
+      "testsPassed": 40,
       "testsTotal": 40,
-      "durationSec": 210,
+      "durationSec": 120,
       "runs": [
-        { "passed": 35, "durationSec": 210 },
-        { "passed": 35, "durationSec": 215 },
-        { "passed": 34, "durationSec": 208 }
+        {
+          "passed": 40,
+          "durationSec": 120
+        },
+        {
+          "passed": 40,
+          "durationSec": 122
+        },
+        {
+          "passed": 40,
+          "durationSec": 118
+        }
       ],
       "score": {
-        "coverage": 35,
-        "stability": 19.5,
-        "design": 12,
-        "reporting": 5,
+        "coverage": 40,
+        "stability": 20,
+        "design": 15,
+        "reporting": 10,
         "cicd": 10,
-        "speed": 2,
-        "bonus": 12,
+        "bonus": 4,
         "manual": 10,
-        "total": 105.5
+        "speed": 5,
+        "total": 114
       },
-      "powerUps": ["ci", "pom", "data"],
-      "tools": ["Selenium", "Java"],
-      "badges": ["Full Stack Tester"],
+      "powerUps": [
+        "ci"
+      ],
+      "tools": [
+        "Selenium"
+      ],
+      "badges": [
+        "Perfect 40",
+        "Speed Demon",
+        "Stable as a Rock",
+        "Pipeline Pro"
+      ],
       "status": "success"
     },
     {
       "username": "qa-ninja-99",
       "displayName": "QA Ninja",
       "rank": 4,
-      "testsPassed": 39,
+      "testsPassed": 40,
       "testsTotal": 40,
-      "durationSec": 140,
+      "durationSec": 120,
       "runs": [
-        { "passed": 39, "durationSec": 140 },
-        { "passed": 32, "durationSec": 145 },
-        { "passed": 39, "durationSec": 138 }
+        {
+          "passed": 40,
+          "durationSec": 120
+        },
+        {
+          "passed": 40,
+          "durationSec": 122
+        },
+        {
+          "passed": 40,
+          "durationSec": 118
+        }
       ],
       "score": {
-        "coverage": 39,
-        "stability": 16.5,
+        "coverage": 40,
+        "stability": 20,
         "design": 15,
         "reporting": 10,
         "cicd": 10,
-        "speed": 4,
-        "bonus": 20,
+        "bonus": 4,
         "manual": 5,
-        "total": 119.5
+        "speed": 5,
+        "total": 109
       },
-      "powerUps": ["ci", "pom", "report", "a11y", "perf"],
-      "tools": ["Cypress", "TypeScript"],
-      "badges": [],
+      "powerUps": [
+        "ci"
+      ],
+      "tools": [
+        "Cypress"
+      ],
+      "badges": [
+        "Perfect 40",
+        "Speed Demon",
+        "Stable as a Rock",
+        "Pipeline Pro"
+      ],
       "status": "success"
     }
   ]
