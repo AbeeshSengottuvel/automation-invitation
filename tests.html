@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Cases - Automation Arena</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="tests-body">
+    <nav class="glass-nav" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">Arena <span class="dot"></span></a>
+            <div class="nav-links">
+                <a href="index.html#hero">Invite</a>
+                <a href="index.html#weapons">Weapons</a>
+                <a href="index.html#powerups">Power-ups</a>
+                <a href="tests.html" class="active">Test Cases</a>
+                <a href="index.html#faq">FAQ</a>
+            </div>
+            <div class="nav-actions">
+                <a href="Automation_Arena_Test_Cases.xlsx" download class="btn pill primary">Download .xlsx</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main">
+        <section class="section pad-lg" style="padding-top: 140px; padding-bottom: 64px;">
+            <div class="container text-center">
+                <h1 class="display fade-up" style="font-size: clamp(40px, 8vw, 80px);">The Gauntlet.</h1>
+                <p class="subhead fade-up" style="margin: 24px auto;">40 test cases designed to test the limits of your framework architecture. Your mission is to automate them all.</p>
+                
+                <div class="mt-4 fade-up">
+                    <a href="Automation_Arena_Test_Cases.xlsx" download class="btn secondary">
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" style="margin-right:8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Download Excel Sheet
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="padding-bottom: 96px;">
+            <div class="container">
+                <div class="lb-table-container">
+                    <table class="lb-table" aria-live="polite">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Module</th>
+                                <th>Test Case Name</th>
+                                <th>Description</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tests-body">
+                            <tr><td colspan="5" class="text-center text-muted">Loading test cases...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">Arena</div>
+            <p>Built with HTML, CSS and JavaScript. Hosted on GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const tbody = document.getElementById('tests-body');
+            try {
+                const res = await fetch('data/test-cases.json');
+                const data = await res.json();
+                
+                tbody.innerHTML = data.map(tc => {
+                    const priorityClass = tc.Priority === 'High' ? 'danger' : (tc.Priority === 'Medium' ? 'warning' : 'success');
+                    return `
+                        <tr>
+                            <td class="tabular-nums" style="font-weight: 600; color: var(--text-muted);">${tc.TC_ID}</td>
+                            <td><span class="chip">${tc.Module}</span></td>
+                            <td style="font-weight: 600;">${tc['Test Case Name']}</td>
+                            <td style="color: var(--text-muted); max-width: 400px;">${tc['Description (Validation Goal)']}</td>
+                            <td><span class="chip" style="border-color: var(--${priorityClass}); color: var(--${priorityClass})">${tc.Priority}</span></td>
+                        </tr>
+                    `;
+                }).join('');
+            } catch (error) {
+                console.error(error);
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">Failed to load test cases. Please use the download button above.</td></tr>';
+            }
+        });
+    </script>
+</body>
+</html>
