@@ -483,32 +483,62 @@
         </section>
 
         <section id="faq" class="faq section pad-lg">
-            <div class="container">
-                <h2>FAQ</h2>
-                <div class="accordion" id="faq-accordion">
-                    <div class="acc-item">
-                        <button class="acc-header" aria-expanded="false">Do I need to register?<span class="acc-icon">+</span></button>
-                        <div class="acc-content"><p>No. If you received an invitation link with your name, you are already on the list. Simply send me your repository link when you are done.</p></div>
+            <div class="container" style="max-width: 800px; margin: 0 auto;">
+                <h2 style="font-size: clamp(36px, 5vw, 56px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 24px; line-height: 1.1;">FAQ</h2>
+                <div class="rules-accordion" id="faq-accordion">
+                    <div class="rules-item">
+                        <button class="rules-header" aria-expanded="false" aria-controls="faq-panel-1" id="faq-btn-1">
+                            <span class="rules-header-text">Do I need to register?</span>
+                            <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                        </button>
+                        <div id="faq-panel-1" class="rules-panel" role="region" aria-labelledby="faq-btn-1" aria-hidden="true">
+                            <div class="rules-panel-inner"><p>No. If you received an invitation link with your name, you are already on the list. Simply send me your repository link when you are done.</p></div>
+                        </div>
                     </div>
-                    <div class="acc-item">
-                        <button class="acc-header" aria-expanded="false">Is any personal data collected?<span class="acc-icon">+</span></button>
-                        <div class="acc-content"><p>Absolutely not. Your name in the URL is processed directly in your browser. There is no backend database, no trackers, and no cookies.</p></div>
+                    <div class="rules-item">
+                        <button class="rules-header" aria-expanded="false" aria-controls="faq-panel-2" id="faq-btn-2">
+                            <span class="rules-header-text">Is any personal data collected?</span>
+                            <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                        </button>
+                        <div id="faq-panel-2" class="rules-panel" role="region" aria-labelledby="faq-btn-2" aria-hidden="true">
+                            <div class="rules-panel-inner"><p>Absolutely not. Your name in the URL is processed directly in your browser. There is no backend database, no trackers, and no cookies.</p></div>
+                        </div>
                     </div>
-                    <div class="acc-item">
-                        <button class="acc-header" aria-expanded="false">Can I use any tool?<span class="acc-icon">+</span></button>
-                        <div class="acc-content"><p>Yes! Playwright, Cypress, Selenium, Robot Framework—whatever you prefer. Pick the stack that lets you build the most robust framework.</p></div>
+                    <div class="rules-item">
+                        <button class="rules-header" aria-expanded="false" aria-controls="faq-panel-3" id="faq-btn-3">
+                            <span class="rules-header-text">Can I use any tool?</span>
+                            <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                        </button>
+                        <div id="faq-panel-3" class="rules-panel" role="region" aria-labelledby="faq-btn-3" aria-hidden="true">
+                            <div class="rules-panel-inner"><p>Yes! Playwright, Cypress, Selenium, Robot Framework—whatever you prefer. Pick the stack that lets you build the most robust framework.</p></div>
+                        </div>
                     </div>
-                    <div class="acc-item">
-                        <button class="acc-header" aria-expanded="false">What if the demo site goes down?<span class="acc-icon">+</span></button>
-                        <div class="acc-content"><p>The OrangeHRM demo site resets frequently. If it goes down, wait a few minutes. Ensure your tests account for shared data by using unique timestamps.</p></div>
+                    <div class="rules-item">
+                        <button class="rules-header" aria-expanded="false" aria-controls="faq-panel-4" id="faq-btn-4">
+                            <span class="rules-header-text">What if the demo site goes down?</span>
+                            <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                        </button>
+                        <div id="faq-panel-4" class="rules-panel" role="region" aria-labelledby="faq-btn-4" aria-hidden="true">
+                            <div class="rules-panel-inner"><p>The OrangeHRM demo site resets frequently. If it goes down, wait a few minutes. Ensure your tests account for shared data by using unique timestamps.</p></div>
+                        </div>
                     </div>
-                    <div class="acc-item">
-                        <button class="acc-header" aria-expanded="false">How is the score calculated?<span class="acc-icon">+</span></button>
-                        <div class="acc-content"><p>The total is 140 points. You earn points for test coverage, execution stability, framework design, reporting, CI/CD pipeline, execution speed, and bonus features (Power-ups).</p></div>
+                    <div class="rules-item">
+                        <button class="rules-header" aria-expanded="false" aria-controls="faq-panel-5" id="faq-btn-5">
+                            <span class="rules-header-text">How is the score calculated?</span>
+                            <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                        </button>
+                        <div id="faq-panel-5" class="rules-panel" role="region" aria-labelledby="faq-btn-5" aria-hidden="true">
+                            <div class="rules-panel-inner"><p>The total is 140 points. You earn points for test coverage, execution stability, framework design, reporting, CI/CD pipeline, execution speed, and bonus features (Power-ups).</p></div>
+                        </div>
                     </div>
-                    <div class="acc-item">
-                        <button class="acc-header" aria-expanded="false">Can I resubmit or update my code?<span class="acc-icon">+</span></button>
-                        <div class="acc-content"><p>Yes, the scoring pipeline runs every 30 minutes. You can push updates to your repository as many times as you want before the final deadline.</p></div>
+                    <div class="rules-item">
+                        <button class="rules-header" aria-expanded="false" aria-controls="faq-panel-6" id="faq-btn-6">
+                            <span class="rules-header-text">Can I resubmit or update my code?</span>
+                            <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                        </button>
+                        <div id="faq-panel-6" class="rules-panel" role="region" aria-labelledby="faq-btn-6" aria-hidden="true">
+                            <div class="rules-panel-inner"><p>Yes, the scoring pipeline runs every 30 minutes. You can push updates to your repository as many times as you want before the final deadline.</p></div>
+                        </div>
                     </div>
                 </div>
             </div>
