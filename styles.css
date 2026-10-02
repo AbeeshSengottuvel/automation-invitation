@@ -261,3 +261,20 @@ p { font-size: var(--text-body); margin-bottom: var(--space-16); }
 .glass-input { width: 100%; padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--bg-alt); color: var(--text); font-family: monospace; resize: vertical; }
 .links-list { display: flex; flex-direction: column; gap: var(--space-8); max-height: 400px; overflow-y: auto; }
 .link-item { display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-sm); font-family: monospace; font-size: 13px; }
+
+/* Test Cases List (Pro Apple-style) */
+.tc-row { display: grid; grid-template-columns: 160px 1fr 160px; gap: var(--space-48); padding: var(--space-48) 0; border-bottom: 1px solid var(--line); align-items: start; }
+.tc-row:last-child { border-bottom: none; }
+.tc-meta { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-12); }
+.tc-id { font-size: 13px; font-weight: 700; color: var(--text-muted); letter-spacing: 0.1em; }
+.tc-title { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: var(--space-12); color: var(--text); }
+.tc-desc { font-size: 17px; line-height: 1.6; max-width: 720px; color: var(--text-muted); margin-bottom: 0; }
+.tc-priority { display: flex; align-items: center; gap: 8px; justify-content: flex-end; font-size: 13px; font-weight: 600; color: var(--text); }
+.tc-priority .indicator { width: 8px; height: 8px; border-radius: 50%; }
+.sticky-download { position: sticky; top: 60px; z-index: 90; background: var(--glass); backdrop-filter: var(--glass-filter); -webkit-backdrop-filter: var(--glass-filter); border-bottom: 1px solid var(--line); padding: var(--space-16) 0; text-align: center; }
+@media (max-width: 768px) {
+  .tc-row { grid-template-columns: 1fr; gap: var(--space-16); padding: var(--space-32) 0; }
+  .tc-priority { justify-content: flex-start; }
+  .tc-meta { flex-direction: row; align-items: center; }
+}
+
