@@ -22,6 +22,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="data/tech-data.js"></script>
+    <script>
+        (function() {
+            try {
+                var t = localStorage.getItem('theme');
+                if (t === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                }
+            } catch(e) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
 
     <!-- JSON-LD Event Data -->
     <script type="application/ld+json">
@@ -411,41 +425,116 @@
         </section>
 
         <section id="scoring" class="scoring section pad-lg">
-            <div class="container">
-                <h2>Scoring logic.</h2>
-                <p class="text-muted mb-4">Total 140 pts + Mystery Round. Transparent, automatic grading.</p>
-                <div class="score-bar-wrapper">
-                    <div class="score-bar">
-                        <div class="seg" style="width: 28.5%; background: var(--success);" title="Coverage: 40">40</div>
-                        <div class="seg" style="width: 14.2%; background: var(--accent-gradient);" title="Stability: 20">20</div>
-                        <div class="seg" style="width: 10.7%; background: #0a84ff;" title="Design: 15">15</div>
-                        <div class="seg" style="width: 7.1%; background: #5e5ce6;" title="Reporting: 10">10</div>
-                        <div class="seg" style="width: 7.1%; background: #bf5af2;" title="CI/CD: 10">10</div>
-                        <div class="seg" style="width: 3.5%; background: var(--warning);" title="Speed: 5">5</div>
-                        <div class="seg" style="width: 28.5%; background: var(--text);" title="Bonus: 40">40</div>
+            <div class="container" style="max-width: 1000px;">
+                <div class="section-header text-center" style="margin-bottom: var(--space-48);">
+                    <p class="eyebrow fade-up">Evaluation Rubric</p>
+                    <h2 class="fade-up">140-Point Scoring Model.</h2>
+                    <p class="subhead fade-up" style="margin: 0 auto;">
+                        Objective, automated evaluation. Points are awarded across coverage, pipeline resilience, architectural craftsmanship, and power-ups.
+                    </p>
+                </div>
+
+                <div class="score-bar-wrapper card glass fade-up" style="padding: 28px; margin-bottom: 36px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+                        <span style="font-weight: 700; font-size: 16px;">Points Distribution</span>
+                        <span style="font-weight: 700; font-size: 16px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">140 Total Points</span>
                     </div>
-                    <div class="score-legend">
-                        <span><span class="dot" style="background: var(--success)"></span> Coverage</span>
-                        <span><span class="dot" style="background: #0a84ff"></span> Stability</span>
-                        <span><span class="dot" style="background: #5e5ce6"></span> Design</span>
-                        <span><span class="dot" style="background: #bf5af2"></span> Rep/CI</span>
-                        <span><span class="dot" style="background: var(--warning)"></span> Speed</span>
-                        <span><span class="dot" style="background: var(--text)"></span> Bonus</span>
+                    
+                    <div class="score-bar" style="height: 36px; border-radius: var(--radius-pill); overflow: hidden; display: flex; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
+                        <div class="seg" style="width: 28.57%; background: #30d158;" title="Coverage: 40 pts">40</div>
+                        <div class="seg" style="width: 14.28%; background: #0a84ff;" title="Stability: 20 pts">20</div>
+                        <div class="seg" style="width: 10.71%; background: #bf5af2;" title="Architecture: 15 pts">15</div>
+                        <div class="seg" style="width: 7.14%; background: #5e5ce6;" title="Reporting: 10 pts">10</div>
+                        <div class="seg" style="width: 7.14%; background: #64d2ff; color: #1d1d1f;" title="CI/CD: 10 pts">10</div>
+                        <div class="seg" style="width: 3.57%; background: #ff9f0a;" title="Speed: 5 pts">5</div>
+                        <div class="seg" style="width: 28.57%; background: #ffd60a; color: #1d1d1f;" title="Power-ups: 40 pts">40</div>
+                    </div>
+
+                    <div class="score-legend" style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; font-size: 13px;">
+                        <span><span class="dot" style="background:#30d158;"></span> Coverage (40)</span>
+                        <span><span class="dot" style="background:#0a84ff;"></span> Stability (20)</span>
+                        <span><span class="dot" style="background:#bf5af2;"></span> Architecture (15)</span>
+                        <span><span class="dot" style="background:#5e5ce6;"></span> Reporting (10)</span>
+                        <span><span class="dot" style="background:#64d2ff;"></span> CI/CD (10)</span>
+                        <span><span class="dot" style="background:#ff9f0a;"></span> Speed (5)</span>
+                        <span><span class="dot" style="background:#ffd60a;"></span> Power-ups (40)</span>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="clean-table mt-4">
-                        <tr><th>Category</th><th>Points</th><th>Criteria</th></tr>
-                        <tr><td>Coverage</td><td>40</td><td>1 pt per passed test case (best of 3 runs)</td></tr>
-                        <tr><td>Stability</td><td>20</td><td>Penalty for flakiness between the 3 runs</td></tr>
-                        <tr><td>Design</td><td>15</td><td>Layered structure, no sleeps, reusable helpers, linting</td></tr>
-                        <tr><td>Reporting</td><td>10</td><td>HTML report, screenshots on fail, trace/video</td></tr>
-                        <tr><td>CI/CD</td><td>10</td><td>Workflow file, triggers on push/PR, artifact upload</td></tr>
-                        <tr><td>Speed</td><td>5</td><td>Fastest execution gets 5, slowest gets 1</td></tr>
-                        <tr><td>Bonus</td><td>40</td><td>+4 pts per detected power-up (Docker, Axe, k6, etc.)</td></tr>
-                    </table>
+
+                <div class="card glass fade-up" style="padding: 32px; margin-bottom: 36px;">
+                    <h3 style="margin-bottom: 20px; font-size: 20px;">Scorecard & Criteria</h3>
+                    <div class="table-responsive">
+                        <table class="clean-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Max</th>
+                                    <th>Evaluation Criteria</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Test Coverage</strong></td>
+                                    <td><span style="font-weight: 700; color: #30d158;">40 pts</span></td>
+                                    <td>1 point per passing test case across the 40 OrangeHRM specifications.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Execution Stability</strong></td>
+                                    <td><span style="font-weight: 700; color: #0a84ff;">20 pts</span></td>
+                                    <td>Evaluated across 3 repeated runs. Zero variance = full 20 pts. Scaled down by flakiness.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Architecture & Patterns</strong></td>
+                                    <td><span style="font-weight: 700; color: #bf5af2;">15 pts</span></td>
+                                    <td>POM / Screenplay implementation, clean separation of concerns, and locator resilience.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Reporting & Artifacts</strong></td>
+                                    <td><span style="font-weight: 700; color: #5e5ce6;">10 pts</span></td>
+                                    <td>Allure, Extent, or HTML execution reports with screenshots on failure and step logs.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CI/CD Pipeline</strong></td>
+                                    <td><span style="font-weight: 700; color: #64d2ff;">10 pts</span></td>
+                                    <td>Automated GitHub Actions workflow triggered on push/PR with clean container setup.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Execution Speed</strong></td>
+                                    <td><span style="font-weight: 700; color: #ff9f0a;">5 pts</span></td>
+                                    <td>Relative speed bonus among players with 30+ passing tests (linear scale: 5 to 1 pt).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bonus Power-ups</strong></td>
+                                    <td><span style="font-weight: 700; color: #e5b800;">40 pts</span></td>
+                                    <td>+4 pts for each implemented power-up (Docker, API hybrid, Axe a11y, k6 perf, BDD, etc.).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <p class="caption mt-2">Tie-breakers: Tests passed > Speed > Alphabetical.</p>
+
+                <div class="cards-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px;">
+                    <div class="card glass text-center" style="padding: 24px;">
+                        <div style="font-size: 32px; margin-bottom: 8px;">🎯</div>
+                        <h4 style="font-size: 16px; margin-bottom: 4px;">Perfect 40</h4>
+                        <p class="caption text-muted" style="margin: 0;">Automate and pass all 40 test specifications</p>
+                    </div>
+                    <div class="card glass text-center" style="padding: 24px;">
+                        <div style="font-size: 32px; margin-bottom: 8px;">⚡</div>
+                        <h4 style="font-size: 16px; margin-bottom: 4px;">Speed Demon</h4>
+                        <p class="caption text-muted" style="margin: 0;">Fastest passing execution time in the arena</p>
+                    </div>
+                    <div class="card glass text-center" style="padding: 24px;">
+                        <div style="font-size: 32px; margin-bottom: 8px;">🛡️</div>
+                        <h4 style="font-size: 16px; margin-bottom: 4px;">Stable as a Rock</h4>
+                        <p class="caption text-muted" style="margin: 0;">Zero flakiness across 3 consecutive test runs</p>
+                    </div>
+                    <div class="card glass text-center" style="padding: 24px;">
+                        <div style="font-size: 32px; margin-bottom: 8px;">🚀</div>
+                        <h4 style="font-size: 16px; margin-bottom: 4px;">Pipeline Pro</h4>
+                        <p class="caption text-muted" style="margin: 0;">Flawless headless container execution in CI</p>
+                    </div>
+                </div>
             </div>
         </section>
 

@@ -86,7 +86,7 @@ const App = (() => {
             };
 
             let current = getStored();
-            if (!current) {
+            if (current !== 'dark') {
                 current = 'light';
             }
             applyTheme(current);
@@ -109,6 +109,12 @@ const App = (() => {
             // Intro Draw
             const overlay = document.getElementById('intro-overlay');
             if (overlay) {
+                // If opening directly to a section (e.g. from tests.html to #rules, #scoring), bypass overlay
+                if (window.location.hash && window.location.hash !== '#hero') {
+                    overlay.style.display = 'none';
+                    return;
+                }
+
                 const hasSeen = (() => {
                     try { return sessionStorage.getItem('seenIntro'); } catch(e) { return false; }
                 })();
@@ -246,19 +252,70 @@ const App = (() => {
         init: () => {
             if (utils.prefersReducedMotion()) return;
 
-            // Nav Highlighting
-            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-            const sections = document.querySelectorAll('section[id]');
-            const navObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        navLinks.forEach(l => {
-                            l.classList.toggle('active', l.getAttribute('href') === `#${entry.target.id}`);
-                        });
+            // Nav Highlighting (Apple-style ScrollSpy)
+            const navLinks = document.querySelectorAll('.nav-links a');
+            const sections = Array.from(document.querySelectorAll('section[id]'));
+
+            const updateActiveNav = () => {
+                const scrollPos = window.scrollY + 140;
+                let currentSection = '';
+
+                for (let i = sections.length - 1; i >= 0; i--) {
+                    const sec = sections[i];
+                    if (sec.offsetTop <= scrollPos) {
+                        currentSection = sec.id;
+                        break;
+                    }
+                }
+
+                if (!currentSection && sections.length > 0) {
+                    currentSection = sections[0].id;
+                }
+
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && (href === `#${currentSection}` || href.endsWith(`#${currentSection}`))) {
+                        link.classList.add('active');
+                    } else if (href && !href.includes('tests.html')) {
+                        link.classList.remove('active');
                     }
                 });
-            }, { rootMargin: '-20% 0px -80% 0px' });
-            sections.forEach(s => navObserver.observe(s));
+            };
+
+            window.addEventListener('scroll', utils.debounce(updateActiveNav, 20), { passive: true });
+            updateActiveNav();
+
+            // Smooth click scroll with immediate active styling
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    link.addEventListener('click', (e) => {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            navLinks.forEach(l => l.classList.remove('active'));
+                            link.classList.add('active');
+                            target.scrollIntoView({ behavior: 'smooth' });
+                            history.pushState(null, '', href);
+                        }
+                    });
+                }
+            });
+
+            // Handle cross-page hash navigation on load (e.g. from tests.html)
+            const handleHashOnLoad = () => {
+                const hash = window.location.hash;
+                if (hash && hash !== '#hero') {
+                    const target = document.querySelector(hash);
+                    if (target) {
+                        setTimeout(() => {
+                            target.scrollIntoView({ behavior: 'smooth' });
+                            updateActiveNav();
+                        }, 100);
+                    }
+                }
+            };
+            window.addEventListener('load', handleHashOnLoad);
 
             // Mobile Menu
             const mobileBtn = document.querySelector('.mobile-menu-btn');
