@@ -163,35 +163,7 @@ const App = (() => {
         }
     };
 
-    // ======================================================================
-    // 5. COUNTDOWN
-    // ======================================================================
-    const Countdown = {
-        init: () => {
-            const el = document.getElementById('countdown');
-            if (!el) return;
 
-            const update = () => {
-                const now = new Date();
-                const diff = CONFIG.startDate - now;
-
-                if (diff <= 0) {
-                    el.textContent = "The arena is open.";
-                    return;
-                }
-
-                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-                const m = Math.floor((diff / 1000 / 60) % 60);
-                const s = Math.floor((diff / 1000) % 60);
-
-                el.textContent = `Starts in: ${d}d ${h.toString().padStart(2, '0')}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
-            };
-
-            update();
-            setInterval(update, 1000);
-        }
-    };
 
     // ======================================================================
     // 6. TERMINAL SIMULATOR
@@ -739,7 +711,6 @@ const App = (() => {
         init: () => {
             ThemeManager.init();
             Invitation.init();
-            Countdown.init();
             Terminal.init();
             ScrollLogic.init();
             DataUI.init();

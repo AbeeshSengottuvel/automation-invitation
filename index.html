@@ -91,9 +91,6 @@
                     <button id="accept-btn" class="btn primary magnetic">Accept the invitation</button>
                     <a href="#story" class="text-link">See how it works</a>
                 </div>
-                <div class="countdown-wrapper fade-up stagger">
-                    <div id="countdown" class="tabular-nums" aria-live="polite">Loading...</div>
-                </div>
             </div>
             <div class="hero-visual fade-up">
                 <div class="test-runner glass card cursor-glow">
@@ -392,7 +389,30 @@
             <div class="container">
                 <h2>FAQ</h2>
                 <div class="accordion" id="faq-accordion">
-                    <!-- Populated by JS -->
+                    <div class="acc-item">
+                        <button class="acc-header" aria-expanded="false">Do I need to register?<span class="acc-icon">+</span></button>
+                        <div class="acc-content"><p>No. If you received an invitation link with your name, you are already on the list. Simply send me your repository link when you are done.</p></div>
+                    </div>
+                    <div class="acc-item">
+                        <button class="acc-header" aria-expanded="false">Is any personal data collected?<span class="acc-icon">+</span></button>
+                        <div class="acc-content"><p>Absolutely not. Your name in the URL is processed directly in your browser. There is no backend database, no trackers, and no cookies.</p></div>
+                    </div>
+                    <div class="acc-item">
+                        <button class="acc-header" aria-expanded="false">Can I use any tool?<span class="acc-icon">+</span></button>
+                        <div class="acc-content"><p>Yes! Playwright, Cypress, Selenium, Robot Framework—whatever you prefer. Pick the stack that lets you build the most robust framework.</p></div>
+                    </div>
+                    <div class="acc-item">
+                        <button class="acc-header" aria-expanded="false">What if the demo site goes down?<span class="acc-icon">+</span></button>
+                        <div class="acc-content"><p>The OrangeHRM demo site resets frequently. If it goes down, wait a few minutes. Ensure your tests account for shared data by using unique timestamps.</p></div>
+                    </div>
+                    <div class="acc-item">
+                        <button class="acc-header" aria-expanded="false">How is the score calculated?<span class="acc-icon">+</span></button>
+                        <div class="acc-content"><p>The total is 140 points. You earn points for test coverage, execution stability, framework design, reporting, CI/CD pipeline, execution speed, and bonus features (Power-ups).</p></div>
+                    </div>
+                    <div class="acc-item">
+                        <button class="acc-header" aria-expanded="false">Can I resubmit or update my code?<span class="acc-icon">+</span></button>
+                        <div class="acc-content"><p>Yes, the scoring pipeline runs every 30 minutes. You can push updates to your repository as many times as you want before the final deadline.</p></div>
+                    </div>
                 </div>
             </div>
         </section>
