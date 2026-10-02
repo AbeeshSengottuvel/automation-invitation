@@ -89,7 +89,7 @@ const App = (() => {
 
             let current = getStored();
             if (!current) {
-                current = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                current = 'light';
             }
             applyTheme(current);
 
