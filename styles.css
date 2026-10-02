@@ -206,20 +206,7 @@ p { font-size: var(--text-body); margin-bottom: var(--space-16); }
 .benefit-item { padding: var(--space-48) 0; border-bottom: 1px solid var(--line); display: flex; gap: var(--space-24); align-items: center; }
 .b-icon { font-size: 48px; }
 
-/* Rules Timeline & Accordion */
-.timeline { position: relative; padding-left: 32px; }
-.timeline .line { position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: var(--line); }
-.timeline .line-fill { width: 100%; background: var(--text); height: 0; transition: height 0.2s; }
-.t-item { position: relative; margin-bottom: var(--space-32); opacity: 0.5; transition: opacity 0.3s; }
-.t-item.active { opacity: 1; }
-.t-dot { position: absolute; left: -30px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--text); border: 2px solid var(--bg); transition: background 0.3s; }
-.accordion { border-top: 1px solid var(--line); }
-.acc-item { border-bottom: 1px solid var(--line); }
-.acc-header { width: 100%; display: flex; justify-content: space-between; padding: 20px 0; font-weight: 600; font-size: 18px; text-align: left; }
-.acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-.acc-content p { padding-bottom: 20px; color: var(--text-muted); }
-.acc-header[aria-expanded="true"] .acc-icon { transform: rotate(45deg); }
-.acc-icon { transition: transform 0.3s; font-weight: 400; font-size: 24px; }
+
 
 /* Scoring */
 .score-bar-wrapper { margin: var(--space-32) 0; }
@@ -285,5 +272,71 @@ p { font-size: var(--text-body); margin-bottom: var(--space-16); }
 @media (max-width: 860px) {
     .mobile-only-toggle { display: flex !important; }
     .desktop-only-toggle { display: none !important; }
+}
+
+
+/* Layout & Typography */
+.tl-rules-grid { display: grid; grid-template-columns: 1fr; gap: 64px; }
+@media (min-width: 1024px) {
+    .tl-rules-grid { grid-template-columns: 1fr 1fr; }
+    .tl-sticky { position: sticky; top: 96px; }
+}
+.tl-heading, .rules-heading { font-size: clamp(36px, 5vw, 56px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 24px; line-height: 1.1; }
+
+/* Timeline Track */
+.tl-column { position: relative; }
+.tl-track-container { position: relative; padding-left: 36px; margin-bottom: 24px; }
+.tl-line-bg { position: absolute; left: 7px; top: 8px; bottom: 8px; width: 2px; background: var(--line); }
+.tl-line-fill { position: absolute; left: 7px; top: 8px; width: 2px; background: var(--accent-gradient); height: var(--tl-progress, 0%); transition: height 0.3s ease-out; }
+
+/* Timeline Items */
+.tl-item { position: relative; margin-bottom: 40px; opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.tl-item:last-child { margin-bottom: 0; }
+.tl-item.is-visible { opacity: 0.6; transform: translateY(0); }
+.tl-item.is-active { opacity: 1; }
+
+.tl-dot { position: absolute; left: -35px; top: 6px; width: 14px; height: 14px; border-radius: 50%; background: var(--bg-alt); border: 2px solid var(--text-muted); transition: all 0.4s ease; z-index: 2; }
+.tl-item.is-active .tl-dot { background: var(--text); border-color: var(--text); box-shadow: 0 0 12px rgba(10, 132, 255, 0.4); transform: scale(1.2); }
+
+.tl-badge { display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--accent-gradient); color: #fff; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.tl-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; color: var(--text-muted); transition: color 0.4s ease; }
+.tl-item.is-active .tl-title { color: var(--text); }
+.tl-desc { font-size: 16px; line-height: 1.5; color: var(--text-muted); margin: 0; }
+.tl-note { font-size: 14px; color: var(--text-muted); margin-top: 16px; }
+
+/* Rules Accordion */
+.rules-intro { font-size: 17px; color: var(--text-muted); margin-bottom: 32px; }
+.rules-accordion { border-top: 1px solid var(--line); margin-bottom: 24px; }
+.rules-item { border-bottom: 1px solid var(--line); }
+
+.rules-header { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 24px 0; background: none; border: none; cursor: pointer; color: var(--text); text-align: left; transition: opacity 0.2s; }
+.rules-header:hover { opacity: 0.8; }
+.rules-header:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; border-radius: 4px; }
+
+.rules-header-text { font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.rules-core-pill { font-size: 12px; padding: 2px 10px; border-radius: 999px; background: var(--accent-gradient); color: #fff; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.rules-icon { position: relative; width: 24px; height: 24px; flex-shrink: 0; }
+.rules-icon-h, .rules-icon-v { position: absolute; background: currentColor; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: transform 0.32s ease-out, opacity 0.32s ease-out; }
+.rules-icon-h { width: 16px; height: 2px; }
+.rules-icon-v { width: 2px; height: 16px; }
+.rules-header[aria-expanded="true"] .rules-icon-v { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+
+.rules-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.32s ease-out; }
+.rules-panel[aria-hidden="false"] { grid-template-rows: 1fr; }
+.rules-panel-inner { overflow: hidden; }
+.rules-panel-inner p { padding-bottom: 24px; color: var(--text-muted); font-size: 16px; line-height: 1.6; margin: 0; }
+
+.rules-actions { display: flex; gap: 16px; }
+.rules-btn-small { background: none; border: none; font-size: 14px; font-weight: 600; color: var(--text); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; padding: 4px 8px; margin-left: -8px; }
+.rules-btn-small:hover { color: var(--text-muted); }
+.rules-btn-small:focus-visible { outline: 2px solid var(--text); border-radius: 4px; }
+
+/* Reduced Motion overrides */
+@media (prefers-reduced-motion: reduce) {
+    .tl-item { transition: none !important; transform: none !important; opacity: 1 !important; }
+    .tl-line-fill { transition: none !important; height: 100% !important; }
+    .rules-panel { transition: none !important; }
+    .rules-icon-v { transition: none !important; }
 }
 

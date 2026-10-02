@@ -349,7 +349,6 @@ const App = (() => {
         techData: [],
         
         init: async () => {
-            DataUI.setupAccordion();
             try {
                 DataUI.techData = await utils.fetchJson(CONFIG.dataUrls.tech);
                 DataUI.renderWeapons();
@@ -358,21 +357,6 @@ const App = (() => {
             }
 
             DataUI.renderPowerups();
-        },
-
-        setupAccordion: () => {
-            document.querySelectorAll('.acc-header').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const expanded = btn.getAttribute('aria-expanded') === 'true';
-                    btn.setAttribute('aria-expanded', !expanded);
-                    const content = btn.nextElementSibling;
-                    if (!expanded) {
-                        content.style.maxHeight = content.scrollHeight + "px";
-                    } else {
-                        content.style.maxHeight = "0";
-                    }
-                });
-            });
         },
 
         renderWeapons: () => {
@@ -536,3 +520,88 @@ const App = (() => {
 
 // Bootstrap
 document.addEventListener('DOMContentLoaded', App.init);
+
+function initTimelineAndRules() {
+    // 1. Accordion Logic
+    const headers = document.querySelectorAll('.rules-header');
+    const expandAllBtn = document.getElementById('rules-expand-all');
+    const collapseAllBtn = document.getElementById('rules-collapse-all');
+    let multiOpen = false;
+
+    const setItemState = (header, isOpen) => {
+        const panel = document.getElementById(header.getAttribute('aria-controls'));
+        if (!panel) return;
+        header.setAttribute('aria-expanded', isOpen);
+        panel.setAttribute('aria-hidden', !isOpen);
+    };
+
+    headers.forEach((header, index) => {
+        header.addEventListener('click', () => {
+            const isOpen = header.getAttribute('aria-expanded') === 'true';
+            if (!multiOpen && !isOpen) {
+                headers.forEach(h => setItemState(h, false));
+            }
+            setItemState(header, !isOpen);
+            multiOpen = false;
+        });
+
+        header.addEventListener('keydown', (e) => {
+            let nextIndex = null;
+            if (e.key === 'ArrowDown') nextIndex = (index + 1) % headers.length;
+            if (e.key === 'ArrowUp') nextIndex = (index - 1 + headers.length) % headers.length;
+            if (e.key === 'Home') nextIndex = 0;
+            if (e.key === 'End') nextIndex = headers.length - 1;
+            if (nextIndex !== null) {
+                e.preventDefault();
+                headers[nextIndex].focus();
+            }
+        });
+    });
+
+    if (expandAllBtn) expandAllBtn.addEventListener('click', () => {
+        multiOpen = true;
+        headers.forEach(h => setItemState(h, true));
+    });
+    
+    if (collapseAllBtn) collapseAllBtn.addEventListener('click', () => {
+        multiOpen = false;
+        headers.forEach(h => setItemState(h, false));
+    });
+
+    // 2. Timeline Scroll Logic
+    const items = Array.from(document.querySelectorAll('.tl-item'));
+    const track = document.getElementById('tl-track');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!track || items.length === 0 || prefersReducedMotion) return;
+
+    const appearObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const i = items.indexOf(entry.target);
+                setTimeout(() => entry.target.classList.add('is-visible'), (i % items.length) * 60);
+                appearObserver.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -10% 0px' });
+
+    const centerObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                items.forEach(el => el.classList.remove('is-active'));
+                entry.target.classList.add('is-active');
+                
+                const idx = items.indexOf(entry.target);
+                const progress = (idx / (items.length - 1)) * 100;
+                track.style.setProperty('--tl-progress', \\%\);
+            }
+        });
+    }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+
+    items.forEach(item => {
+        appearObserver.observe(item);
+        centerObserver.observe(item);
+    });
+}
+document.addEventListener('DOMContentLoaded', initTimelineAndRules);
+

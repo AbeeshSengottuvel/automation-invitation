@@ -222,57 +222,186 @@
             </div>
         </section>
 
-        <section id="rules" class="rules section pad-lg">
-            <div class="container dual-col">
-                <div class="col timeline-col">
-                    <h2>Timeline</h2>
-                    <div class="timeline">
-                        <div class="line"><div class="line-fill"></div></div>
-                        <div class="t-item active">
-                            <div class="t-dot"></div>
-                            <h4>Invitation</h4><p>Today</p>
+        <section id="rules" class="section pad-lg">
+            <div class="container tl-rules-grid">
+                <!-- LEFT COLUMN: TIMELINE -->
+                <div class="tl-column">
+                    <div class="tl-sticky">
+                        <h2 class="tl-heading">Your 30 days</h2>
+                        <div class="tl-track-container" id="tl-track">
+                            <div class="tl-line-bg"></div>
+                            <div class="tl-line-fill" style="--tl-progress: 0%;"></div>
+                            
+                            <div class="tl-item">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <span class="tl-badge">Day 0</span>
+                                    <h3 class="tl-title">The starting gun</h3>
+                                    <p class="tl-desc">The organizer announces the start in the group. Your 30 days begin that day.</p>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <span class="tl-badge">Day 1</span>
+                                    <h3 class="tl-title">Empty repo</h3>
+                                    <p class="tl-desc">Create a public repository and make your first commit. Nothing is added before it.</p>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <span class="tl-badge">Days 1-7</span>
+                                    <h3 class="tl-title">Foundation</h3>
+                                    <p class="tl-desc">Framework skeleton, configuration, browser setup, and your first passing login test.</p>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <span class="tl-badge">Days 8-14</span>
+                                    <h3 class="tl-title">Core build</h3>
+                                    <p class="tl-desc">Page objects, test data handling, and your first 20 test cases.</p>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <span class="tl-badge">Days 15-21</span>
+                                    <h3 class="tl-title">Scale up</h3>
+                                    <p class="tl-desc">All 40 test cases, reporting, a CI pipeline, and power-ups.</p>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <span class="tl-badge">Days 22-28</span>
+                                    <h3 class="tl-title">Harden and learn</h3>
+                                    <p class="tl-desc">Refactor, write your README and learning log, and practise explaining your own code out loud.</p>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <span class="tl-badge">Day 29</span>
+                                    <h3 class="tl-title">Code freeze</h3>
+                                    <p class="tl-desc">Final commit. Anything pushed after the freeze is ignored.</p>
+                                </div>
+                            </div>
+                            <div class="tl-item">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <span class="tl-badge">Day 30+</span>
+                                    <h3 class="tl-title">The viva</h3>
+                                    <p class="tl-desc">One-on-one interviews, scheduled by the organizer. Results and awards follow.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="t-item">
-                            <div class="t-dot"></div>
-                            <h4>Initialize repo</h4><p>Before start</p>
-                        </div>
-                        <div class="t-item">
-                            <div class="t-dot"></div>
-                            <h4>Build</h4><p>Week 1-2</p>
-                        </div>
-                        <div class="t-item">
-                            <div class="t-dot"></div>
-                            <h4>Submit link</h4><p>By Deadline</p>
-                        </div>
-                        <div class="t-item">
-                            <div class="t-dot"></div>
-                            <h4>Mystery Round</h4><p>Final Day</p>
-                        </div>
-                        <div class="t-item">
-                            <div class="t-dot"></div>
-                            <h4>Results</h4><p>Awards</p>
-                        </div>
+                        <p class="tl-note">Optional weekly check-in: share progress in the group. Nothing is scored.</p>
                     </div>
                 </div>
-                <div class="col rules-col">
-                    <h2>Rules of the Arena</h2>
-                    <div class="accordion" id="rules-accordion">
-                        <div class="acc-item">
-                            <button class="acc-header" aria-expanded="false">Tools & Repositories<span class="acc-icon">+</span></button>
-                            <div class="acc-content"><p>Any tool or language is allowed. One public repository per player. It must be public by the submission deadline so the GitHub Actions scorer can run it.</p></div>
+
+                <!-- RIGHT COLUMN: RULES -->
+                <div class="rules-column">
+                    <h2 class="rules-heading">Rules of the Arena</h2>
+                    <p class="rules-intro">Three pillars: no AI, built from scratch, and a viva. Everything else follows from these.</p>
+                    
+                    <div class="rules-accordion" id="rules-accordion">
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="true" aria-controls="rule-panel-1" id="rule-btn-1">
+                                <span class="rules-header-text">1. Human only: no AI <span class="rules-core-pill">Core rule</span></span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-1" class="rules-panel" role="region" aria-labelledby="rule-btn-1" aria-hidden="false">
+                                <div class="rules-panel-inner"><p>Banned: AI chat assistants, AI code completion or agents in your editor or terminal, AI-generated test cases or locators, AI browser extensions, and AI summaries in search results (switch them off). Allowed: official documentation, books, videos and courses, and normal search results or community answers to understand a concept. You type every line yourself. If you adapt a non-trivial snippet from the web, link its source in a code comment.</p></div>
+                            </div>
                         </div>
-                        <div class="acc-item">
-                            <button class="acc-header" aria-expanded="false">Test Environment<span class="acc-icon">+</span></button>
-                            <div class="acc-content"><p>The demo site is shared and resets frequently. Use unique test data (e.g., append timestamps) to avoid conflicts. Do not edit core shared configurations.</p></div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-2" id="rule-btn-2">
+                                <span class="rules-header-text">2. Zero to one: build from scratch <span class="rules-core-pill">Core rule</span></span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-2" class="rules-panel" role="region" aria-labelledby="rule-btn-2" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>Start from an empty public repository. Installing libraries and frameworks (Selenium, Playwright, Cypress, NUnit, RestSharp and so on) is fine. Starter kits, boilerplates, scaffolding generators that create sample tests, and copied framework architectures are not.</p></div>
+                            </div>
                         </div>
-                        <div class="acc-item">
-                            <button class="acc-header" aria-expanded="false">Coding Standards<span class="acc-icon">+</span></button>
-                            <div class="acc-content"><p>No hardcoded sleeps. Use dynamic waits. No copying other players' work (instant disqualification).</p></div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-3" id="rule-btn-3">
+                                <span class="rules-header-text">3. Proof of work</span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-3" class="rules-panel" role="region" aria-labelledby="rule-btn-3" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>Your commit history is part of the review. Make small commits with meaningful messages across the month. One giant commit near the deadline counts against you.</p></div>
+                            </div>
                         </div>
-                        <div class="acc-item">
-                            <button class="acc-header" aria-expanded="false">Disputes & Fair Play<span class="acc-icon">+</span></button>
-                            <div class="acc-content"><p>Keep it friendly. Organizer decisions on edge cases are final.</p></div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-4" id="rule-btn-4">
+                                <span class="rules-header-text">4. Learning log</span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-4" class="rules-panel" role="region" aria-labelledby="rule-btn-4" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>Keep a LEARNINGS.md in your repository. Three to five lines each week: what you built, what broke, what you learned. It helps you in the viva and it is the point of the contest.</p></div>
+                            </div>
                         </div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-5" id="rule-btn-5">
+                                <span class="rules-header-text">5. The viva: own every line <span class="rules-core-pill">Core rule</span></span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-5" class="rules-panel" role="region" aria-labelledby="rule-btn-5" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>Every player has an individual interview after the freeze. If you cannot explain it, it does not count: any part of your project that you cannot explain earns no points for that part.</p></div>
+                            </div>
+                        </div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-6" id="rule-btn-6">
+                                <span class="rules-header-text">6. Ideas, not code</span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-6" class="rules-panel" role="region" aria-labelledby="rule-btn-6" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>You can discuss concepts and help each other understand. You must never share, show or read another player's code before results are announced. Copying means instant disqualification.</p></div>
+                            </div>
+                        </div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-7" id="rule-btn-7">
+                                <span class="rules-header-text">7. Test environment</span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-7" class="rules-panel" role="region" aria-labelledby="rule-btn-7" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>The demo site is shared and resets often. Use unique test data (append a timestamp or random suffix). Do not change shared core configuration.</p></div>
+                            </div>
+                        </div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-8" id="rule-btn-8">
+                                <span class="rules-header-text">8. Coding standards</span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-8" class="rules-panel" role="region" aria-labelledby="rule-btn-8" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>No hardcoded sleeps. Use proper waits. Keep configuration out of test code. Your repository must be public by the code freeze so the scorer can run it.</p></div>
+                            </div>
+                        </div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-9" id="rule-btn-9">
+                                <span class="rules-header-text">9. Honesty pledge</span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-9" class="rules-panel" role="region" aria-labelledby="rule-btn-9" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>At the start of your viva you state, on record, that you wrote everything yourself without AI. If this is later found to be false, you are disqualified and removed from the leaderboard.</p></div>
+                            </div>
+                        </div>
+                        <div class="rules-item">
+                            <button class="rules-header" aria-expanded="false" aria-controls="rule-panel-10" id="rule-btn-10">
+                                <span class="rules-header-text">10. Disputes and fair play</span>
+                                <span class="rules-icon" aria-hidden="true"><span class="rules-icon-h"></span><span class="rules-icon-v"></span></span>
+                            </button>
+                            <div id="rule-panel-10" class="rules-panel" role="region" aria-labelledby="rule-btn-10" aria-hidden="true">
+                                <div class="rules-panel-inner"><p>Keep it friendly. The organizer's decision on edge cases is final.</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rules-actions">
+                        <button id="rules-expand-all" class="rules-btn-small">Expand all</button>
+                        <button id="rules-collapse-all" class="rules-btn-small">Collapse all</button>
                     </div>
                 </div>
             </div>
