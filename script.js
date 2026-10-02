@@ -593,7 +593,7 @@ function initTimelineAndRules() {
                 
                 const idx = items.indexOf(entry.target);
                 const progress = (idx / (items.length - 1)) * 100;
-                track.style.setProperty('--tl-progress', \\%\);
+                track.style.setProperty('--tl-progress', `${progress}%`);
             }
         });
     }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
