@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Organizer - Invite Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="invite-builder-body">
+    <main class="container pad-lg dual-col">
+        <div class="col builder-controls">
+            <h1>Arena Invite Builder</h1>
+            <p class="text-muted">Private tool. Runs entirely in the browser.</p>
+            
+            <div class="form-group mt-4">
+                <label for="names-input">Guest Names (One per line)</label>
+                <textarea id="names-input" rows="8" placeholder="Alice\nBob Smith\nDr. Doom" class="glass-input"></textarea>
+                <p class="caption text-muted mt-1">Letters, spaces, apostrophes, hyphens, dots only. Max 40 chars.</p>
+            </div>
+            
+            <button id="generate-btn" class="btn primary mt-2">Generate Links</button>
+
+            <div class="results-area mt-4">
+                <div class="results-header">
+                    <h3>Generated Links</h3>
+                    <button id="copy-all-btn" class="btn secondary small">Copy All</button>
+                </div>
+                <div id="links-container" class="links-list">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col preview-col">
+            <h2>Live Preview</h2>
+            <div class="hero preview-hero card glass mt-2" style="height: 600px; position: relative; overflow: hidden; transform: scale(0.9); transform-origin: top left;">
+                <div class="mesh-bg"></div>
+                <div class="hero-content" style="padding: 48px;">
+                    <p class="eyebrow">A private invitation</p>
+                    <h1 class="display" style="font-size: 56px;"><span id="preview-name">You're invited</span>.</h1>
+                    <p class="subhead">Automate 40 manual test cases for the OrangeHRM demo using any tool. More features, more points. Build the framework. Beat the clock.</p>
+                    <div class="hero-actions mt-4">
+                        <button class="btn primary disabled">Accept the invitation</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="invite.js"></script>
+</body>
+</html>

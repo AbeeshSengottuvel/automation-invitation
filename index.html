@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Automation Arena - Build the framework. Beat the clock.">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https://github.com; connect-src 'self';">
+    <title>Automation Arena</title>
+
+    <meta property="og:title" content="Automation Arena">
+    <meta property="og:description" content="Build the framework. Beat the clock. A private automation challenge.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Inline SVG Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- JSON-LD Event Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "Automation Arena",
+      "startDate": "2026-10-09T15:00:00+05:30",
+      "endDate": "2026-10-23T15:00:00+05:30",
+      "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": {
+        "@type": "VirtualLocation",
+        "url": "https://github.com/AbeeshSengottuvel/automation-invitation"
+      },
+      "description": "A private test automation contest.",
+      "organizer": {
+        "@type": "Person",
+        "name": "Abeesh"
+      }
+    }
+    </script>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
+        <svg class="intro-logo" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="4">
+            <path class="draw-path" d="M10 90 L50 10 L90 90 M30 50 L70 50" />
+        </svg>
+    </div>
+
+    <nav class="glass-nav" aria-label="Main Navigation">
+        <div class="nav-container">
+            <div class="nav-brand">Arena <span class="dot"></span></div>
+            <button class="mobile-menu-btn" aria-label="Menu" aria-expanded="false">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                    <path d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            </button>
+            <div class="nav-links">
+                <a href="#hero" class="active">Invite</a>
+                <a href="#weapons">Weapons</a>
+                <a href="#powerups">Power-ups</a>
+                <a href="#rules">Rules</a>
+                <a href="#scoring">Scoring</a>
+                <a href="#leaderboard">Leaderboard</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme" aria-pressed="false">
+                    <svg class="sun" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <a href="#steps" class="btn pill nav-accept">Accept</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main">
+        <section id="hero" class="hero section">
+            <div class="mesh-bg"></div>
+            <div class="hero-content">
+                <p class="eyebrow fade-up">A private invitation</p>
+                <h1 class="display fade-up stagger"><span id="guest-name">You're invited</span>.</h1>
+                <p class="subhead fade-up stagger">Automate 40 manual test cases for the OrangeHRM demo using any tool. More features, more points. Build the framework. Beat the clock.</p>
+                <div class="hero-actions fade-up stagger">
+                    <button id="accept-btn" class="btn primary magnetic">Accept the invitation</button>
+                    <a href="#story" class="text-link">See how it works</a>
+                </div>
+                <div class="countdown-wrapper fade-up stagger">
+                    <div id="countdown" class="tabular-nums" aria-live="polite">Loading...</div>
+                </div>
+            </div>
+            <div class="hero-visual fade-up">
+                <div class="test-runner glass card cursor-glow">
+                    <div class="runner-header">
+                        <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+                        <div class="runner-title">arena_test.spec.ts</div>
+                    </div>
+                    <div class="runner-stats">
+                        <div class="progress-ring">
+                            <svg viewBox="0 0 36 36">
+                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                <path class="circle" stroke-dasharray="92.5, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            </svg>
+                        </div>
+                        <div class="runner-numbers">
+                            <span class="pass-count tabular-nums">37/40</span>
+                            <span class="timer tabular-nums">01:42</span>
+                        </div>
+                    </div>
+                    <ul class="test-list" aria-hidden="true" id="runner-logs">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="story" class="story section pad-lg">
+            <h2 class="sr-only">How it works</h2>
+            <div class="story-container">
+                <div class="story-step" data-step="1">
+                    <div class="step-num">1</div>
+                    <div class="step-content">
+                        <h2>Fork the template.</h2>
+                        <p>Start with a clean slate. Clone the official Arena repository to your GitHub.</p>
+                        <p>It contains the scaffolding for the scorer to find your tests.</p>
+                    </div>
+                    <div class="step-visual"><svg viewBox="0 0 100 100" stroke="currentColor" fill="none"><path d="M50 20 L50 80 M50 20 L30 40 M50 20 L70 40" stroke-width="4"/></svg></div>
+                </div>
+                <div class="story-step" data-step="2">
+                    <div class="step-num">2</div>
+                    <div class="step-content">
+                        <h2>Automate 40 tests.</h2>
+                        <p>Use any tool or language. Cover the core features of the OrangeHRM demo site.</p>
+                        <p>Efficiency, stability, and design matter just as much as coverage.</p>
+                    </div>
+                    <div class="step-visual"><svg viewBox="0 0 100 100" stroke="currentColor" fill="none"><circle cx="50" cy="50" r="30" stroke-width="4"/><path d="M50 30 L50 50 L65 65" stroke-width="4"/></svg></div>
+                </div>
+                <div class="story-step" data-step="3">
+                    <div class="step-num">3</div>
+                    <div class="step-content">
+                        <h2>Climb the board.</h2>
+                        <p>Send me your link. The scorer runs every 30 minutes, analyzing your pipeline.</p>
+                        <p>The smartest framework takes the crown.</p>
+                    </div>
+                    <div class="step-visual"><svg viewBox="0 0 100 100" stroke="currentColor" fill="none"><path d="M20 80 L20 50 M50 80 L50 30 M80 80 L80 10" stroke-width="8" stroke-linecap="round"/></svg></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="weapons" class="weapons section pad-lg">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Choose your weapon.</h2>
+                    <p class="text-muted">Pick your favorite stack. Any tool is allowed, not just these.</p>
+                </div>
+                <div class="carousel-controls">
+                    <button id="car-prev" aria-label="Previous" class="icon-btn"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M15 18l-6-6 6-6"/></svg></button>
+                    <button id="car-next" aria-label="Next" class="icon-btn"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 18l6-6-6-6"/></svg></button>
+                </div>
+                <div class="carousel" id="tech-carousel">
+                    <!-- Populated by JS from tech.json -->
+                </div>
+            </div>
+            
+            <div id="compare-drawer" class="bottom-sheet glass" aria-hidden="true">
+                <div class="sheet-header">
+                    <h3>Compare Tools</h3>
+                    <div class="sheet-actions">
+                        <button id="compare-clear" class="btn secondary small">Clear</button>
+                        <button id="compare-close" class="icon-btn" aria-label="Close"><svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                    </div>
+                </div>
+                <div class="sheet-content">
+                    <table id="compare-table">
+                        <!-- Populated by JS -->
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="powerups" class="powerups section pad-lg">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Power-ups.</h2>
+                    <p class="text-muted">Max bonus: 40 pts. Elevate your framework to gain the edge.</p>
+                </div>
+                <div class="bento-grid" id="powerup-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="benefits" class="benefits section pad-lg">
+            <div class="container">
+                <div class="benefit-item reveal">
+                    <div class="b-icon">📁</div>
+                    <h3>Build a portfolio-ready framework.</h3>
+                </div>
+                <div class="benefit-item reveal">
+                    <div class="b-icon">⚡</div>
+                    <h3>Gain real CI/CD pipeline experience.</h3>
+                </div>
+                <div class="benefit-item reveal">
+                    <div class="b-icon">💬</div>
+                    <h3>Create interview-ready talking points.</h3>
+                </div>
+                <div class="benefit-item reveal">
+                    <div class="b-icon">🧠</div>
+                    <h3>Learn new patterns from friends.</h3>
+                </div>
+                <div class="benefit-item reveal">
+                    <div class="b-icon">🏆</div>
+                    <h3>Secure ultimate bragging rights.</h3>
+                </div>
+            </div>
+        </section>
+
+        <section id="rules" class="rules section pad-lg">
+            <div class="container dual-col">
+                <div class="col timeline-col">
+                    <h2>Timeline</h2>
+                    <div class="timeline">
+                        <div class="line"><div class="line-fill"></div></div>
+                        <div class="t-item active">
+                            <div class="t-dot"></div>
+                            <h4>Invitation</h4><p>Today</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-dot"></div>
+                            <h4>Fork template</h4><p>Before start</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-dot"></div>
+                            <h4>Build</h4><p>Week 1-2</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-dot"></div>
+                            <h4>Submit link</h4><p>By Deadline</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-dot"></div>
+                            <h4>Mystery Round</h4><p>Final Day</p>
+                        </div>
+                        <div class="t-item">
+                            <div class="t-dot"></div>
+                            <h4>Results</h4><p>Awards</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col rules-col">
+                    <h2>Rules of the Arena</h2>
+                    <div class="accordion" id="rules-accordion">
+                        <div class="acc-item">
+                            <button class="acc-header" aria-expanded="false">Tools & Repositories<span class="acc-icon">+</span></button>
+                            <div class="acc-content"><p>Any tool or language is allowed. One public repository per player. It must be public by the submission deadline so the GitHub Actions scorer can run it.</p></div>
+                        </div>
+                        <div class="acc-item">
+                            <button class="acc-header" aria-expanded="false">Test Environment<span class="acc-icon">+</span></button>
+                            <div class="acc-content"><p>The demo site is shared and resets frequently. Use unique test data (e.g., append timestamps) to avoid conflicts. Do not edit core shared configurations.</p></div>
+                        </div>
+                        <div class="acc-item">
+                            <button class="acc-header" aria-expanded="false">Coding Standards<span class="acc-icon">+</span></button>
+                            <div class="acc-content"><p>No hardcoded sleeps. Use dynamic waits. No copying other players' work (instant disqualification).</p></div>
+                        </div>
+                        <div class="acc-item">
+                            <button class="acc-header" aria-expanded="false">Disputes & Fair Play<span class="acc-icon">+</span></button>
+                            <div class="acc-content"><p>Keep it friendly. Organizer decisions on edge cases are final.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="scoring" class="scoring section pad-lg">
+            <div class="container">
+                <h2>Scoring logic.</h2>
+                <p class="text-muted mb-4">Total 140 pts + Mystery Round. Transparent, automatic grading.</p>
+                <div class="score-bar-wrapper">
+                    <div class="score-bar">
+                        <div class="seg" style="width: 28.5%; background: var(--success);" title="Coverage: 40">40</div>
+                        <div class="seg" style="width: 14.2%; background: var(--accent-gradient);" title="Stability: 20">20</div>
+                        <div class="seg" style="width: 10.7%; background: #0a84ff;" title="Design: 15">15</div>
+                        <div class="seg" style="width: 7.1%; background: #5e5ce6;" title="Reporting: 10">10</div>
+                        <div class="seg" style="width: 7.1%; background: #bf5af2;" title="CI/CD: 10">10</div>
+                        <div class="seg" style="width: 3.5%; background: var(--warning);" title="Speed: 5">5</div>
+                        <div class="seg" style="width: 28.5%; background: var(--text);" title="Bonus: 40">40</div>
+                    </div>
+                    <div class="score-legend">
+                        <span><span class="dot" style="background: var(--success)"></span> Coverage</span>
+                        <span><span class="dot" style="background: #0a84ff"></span> Stability</span>
+                        <span><span class="dot" style="background: #5e5ce6"></span> Design</span>
+                        <span><span class="dot" style="background: #bf5af2"></span> Rep/CI</span>
+                        <span><span class="dot" style="background: var(--warning)"></span> Speed</span>
+                        <span><span class="dot" style="background: var(--text)"></span> Bonus</span>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="clean-table mt-4">
+                        <tr><th>Category</th><th>Points</th><th>Criteria</th></tr>
+                        <tr><td>Coverage</td><td>40</td><td>1 pt per passed test case (best of 3 runs)</td></tr>
+                        <tr><td>Stability</td><td>20</td><td>Penalty for flakiness between the 3 runs</td></tr>
+                        <tr><td>Design</td><td>15</td><td>Layered structure, no sleeps, reusable helpers, linting</td></tr>
+                        <tr><td>Reporting</td><td>10</td><td>HTML report, screenshots on fail, trace/video</td></tr>
+                        <tr><td>CI/CD</td><td>10</td><td>Workflow file, triggers on push/PR, artifact upload</td></tr>
+                        <tr><td>Speed</td><td>5</td><td>Fastest execution gets 5, slowest gets 1</td></tr>
+                        <tr><td>Bonus</td><td>40</td><td>+4 pts per detected power-up (Docker, Axe, k6, etc.)</td></tr>
+                    </table>
+                </div>
+                <p class="caption mt-2">Tie-breakers: Tests passed > Speed > Alphabetical.</p>
+            </div>
+        </section>
+
+        <section id="leaderboard" class="leaderboard section pad-lg">
+            <div class="container">
+                <div class="lb-header">
+                    <h2>Leaderboard.</h2>
+                    <div class="lb-controls">
+                        <input type="text" id="lb-search" placeholder="Search players..." aria-label="Search players">
+                        <select id="lb-sort" aria-label="Sort by">
+                            <option value="score">Score</option>
+                            <option value="speed">Speed</option>
+                            <option value="tests">Tests Passed</option>
+                        </select>
+                        <button id="lb-refresh" class="icon-btn" aria-label="Refresh"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></button>
+                    </div>
+                </div>
+                <p class="caption text-muted" id="lb-updated">Last updated: Never</p>
+                
+                <div class="podium" id="lb-podium">
+                    <!-- Top 3 -->
+                </div>
+
+                <div class="lb-table-container">
+                    <table class="lb-table" aria-live="polite">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Player</th>
+                                <th>Stack</th>
+                                <th>Passed</th>
+                                <th>Speed</th>
+                                <th>Score</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="lb-body">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="steps" class="steps section pad-lg">
+            <div class="container">
+                <h2>Your next steps.</h2>
+                <div class="step-cards">
+                    <div class="card glass">
+                        <div class="card-num">1</div>
+                        <h3>Fork the template</h3>
+                        <p>Clone the starter repository to get the scoring structure.</p>
+                        <a href="https://github.com/Abeesh/automation-arena-template" target="_blank" rel="noopener noreferrer" class="btn secondary mt-2">Open Template</a>
+                    </div>
+                    <div class="card glass">
+                        <div class="card-num">2</div>
+                        <h3>Build and push</h3>
+                        <p>Write your framework, push to your public repo, ensure tests run with a single command.</p>
+                    </div>
+                    <div class="card glass">
+                        <div class="card-num">3</div>
+                        <h3>Send your link</h3>
+                        <p>Send your repo link to Abeesh in our group chat. You'll be added to the board.</p>
+                    </div>
+                </div>
+                <div class="checklist mt-4 card">
+                    <h4>Before you send your link:</h4>
+                    <ul>
+                        <li><svg viewBox="0 0 24 24" width="16" stroke="var(--success)" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Repository is public</li>
+                        <li><svg viewBox="0 0 24 24" width="16" stroke="var(--success)" fill="none"><polyline points="20 6 9 17 4 12"/></svg> Tests run with a single command</li>
+                        <li><svg viewBox="0 0 24 24" width="16" stroke="var(--success)" fill="none"><polyline points="20 6 9 17 4 12"/></svg> README states how to run them</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="faq section pad-lg">
+            <div class="container">
+                <h2>FAQ</h2>
+                <div class="accordion" id="faq-accordion">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">Arena</div>
+            <p>Built with HTML, CSS and JavaScript. Hosted on GitHub Pages.</p>
+            <p><strong>Privacy note:</strong> No cookies, no tracking, no third-party embeds, no personal data collected or stored. Names in URLs are processed client-side only.</p>
+            <div class="footer-links">
+                <a href="https://github.com/AbeeshSengottuvel/automation-invitation" target="_blank" rel="noopener noreferrer">Source Code</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hidden canvas for certificate generation -->
+    <canvas id="cert-canvas" width="1920" height="1080" style="display:none;"></canvas>
+
+    <!-- Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" defer></script>
+    <script src="script.js" defer></script>
+</body>
+</html>

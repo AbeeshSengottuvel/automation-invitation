@@ -1,0 +1,160 @@
+name: Arena Scoring Pipeline
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # Every 30 minutes
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/players.json'
+
+concurrency:
+  group: 'arena-scoring'
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate Players
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      
+      - name: Validate data/players.json
+        id: set-matrix
+        run: |
+          echo "Validating players.json..."
+          jq -e 'type == "array"' data/players.json > /dev/null || (echo "Must be an array" && exit 1)
+          
+          # Exclude _readme
+          PLAYERS=$(jq -c '[.[] | select(.username != "_readme")]' data/players.json)
+          COUNT=$(echo $PLAYERS | jq 'length')
+          
+          if [ "$COUNT" -gt 30 ]; then
+            echo "Max 30 players allowed."
+            exit 1
+          fi
+          
+          # Validate regex and uniqueness
+          echo $PLAYERS | jq -e 'map(.username) | unique | length == length' > /dev/null || (echo "Duplicate usernames found" && exit 1)
+          
+          for row in $(echo "${PLAYERS}" | jq -r '.[] | @base64'); do
+            _jq() {
+              echo ${row} | base64 --decode | jq -r ${1}
+            }
+            USERNAME=$(_jq '.username')
+            REPO=$(_jq '.repo')
+            if [[ ! $USERNAME =~ ^[A-Za-z0-9-]{1,39}$ ]]; then
+              echo "Invalid username: $USERNAME"
+              exit 1
+            fi
+            if [[ ! $REPO =~ ^[A-Za-z0-9._-]{1,100}$ ]]; then
+              echo "Invalid repo: $REPO"
+              exit 1
+            fi
+          done
+          
+          echo "Validation passed. Setting matrix..."
+          echo "matrix={\"player\":$PLAYERS}" >> $GITHUB_OUTPUT
+
+  run-players:
+    name: Run Tests for ${{ matrix.player.username }}
+    needs: validate
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix: ${{ fromJSON(needs.validate.outputs.matrix) }}
+    
+    # SECURITY: This job runs untrusted player code. 
+    # It must have ONLY read permissions and NO access to secrets.
+    permissions:
+      contents: read
+    
+    timeout-minutes: 20
+    
+    steps:
+      - name: Checkout Player Repository
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          repository: ${{ matrix.player.username }}/${{ matrix.player.repo }}
+          path: player_workspace
+
+      - name: Analyze Stack and Power-ups
+        id: analyze
+        working-directory: player_workspace
+        continue-on-error: true
+        run: |
+          # Safe injection via env vars, NOT direct interpolation
+          USERNAME="$PLAYER_USERNAME"
+          
+          echo "Analyzing repository structure..."
+          # Mock analysis logic: in reality, this would search for package.json, Dockerfile, etc.
+          # and output metrics JSON.
+          
+          cat <<EOF > ../${USERNAME}-metrics.json
+          {
+            "tools": ["${PLAYER_TOOL}"],
+            "powerUps": ["ci"],
+            "designScore": 15,
+            "reportingScore": 10,
+            "cicdScore": 10,
+            "runs": [
+              { "passed": 40, "durationSec": 120 },
+              { "passed": 40, "durationSec": 122 },
+              { "passed": 40, "durationSec": 118 }
+            ],
+            "status": "success"
+          }
+          EOF
+        env:
+          PLAYER_USERNAME: ${{ matrix.player.username }}
+          PLAYER_TOOL: ${{ matrix.player.tool }}
+
+      - name: Upload Metrics Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: metrics-${{ matrix.player.username }}
+          path: ${{ matrix.player.username }}-metrics.json
+          retention-days: 1
+
+  aggregate:
+    name: Aggregate Results
+    needs: run-players
+    if: always() # Run even if some matrix jobs failed
+    runs-on: ubuntu-latest
+    
+    # SECURITY: This is the ONLY job that can push changes.
+    # It does not run player code.
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Arena Repo
+        uses: actions/checkout@v4
+
+      - name: Download all metrics artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: metrics-*
+          merge-multiple: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Scoring Engine
+        run: node scripts/score.js
+
+      - name: Commit Results
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/results.json
+          # Only commit if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: update leaderboard [skip ci]" && git push)

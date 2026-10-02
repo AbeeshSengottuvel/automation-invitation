@@ -1,0 +1,42 @@
+[
+    {
+        "username": "_readme",
+        "displayName": "DO NOT DELETE",
+        "repo": "this_is_an_instruction_record",
+        "tool": "None",
+        "language": "None",
+        "manualPoints": 0
+    },
+    {
+        "username": "AbeeshSengottuvel",
+        "displayName": "Abeesh",
+        "repo": "arena-playwright-js",
+        "tool": "Playwright",
+        "language": "JavaScript",
+        "manualPoints": 15
+    },
+    {
+        "username": "johndoe123",
+        "displayName": "John D.",
+        "repo": "selenium-java-arena",
+        "tool": "Selenium",
+        "language": "Java",
+        "manualPoints": 10
+    },
+    {
+        "username": "qa-ninja-99",
+        "displayName": "QA Ninja",
+        "repo": "cypress-arena-challenge",
+        "tool": "Cypress",
+        "language": "TypeScript",
+        "manualPoints": 5
+    },
+    {
+        "username": "robot-master",
+        "displayName": "Robo Tester",
+        "repo": "robot-arena",
+        "tool": "Robot Framework",
+        "language": "Python",
+        "manualPoints": 20
+    }
+]
