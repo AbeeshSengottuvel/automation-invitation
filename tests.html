@@ -73,7 +73,10 @@
             const container = document.getElementById('tests-list');
             try {
                 const res = await fetch('data/test-cases.json');
-                const data = await res.json();
+                let data = await res.json();
+                
+                // Filter out empty rows (merged cells from Excel steps)
+                data = data.filter(tc => tc.TC_ID && String(tc.TC_ID).trim() !== '');
                 
                 container.innerHTML = data.map(tc => {
                     const p = (tc.Priority || '').toLowerCase();
