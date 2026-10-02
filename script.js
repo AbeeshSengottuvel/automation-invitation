@@ -63,11 +63,8 @@ const App = (() => {
     // ======================================================================
     const ThemeManager = {
         init: () => {
-            const toggleBtn = document.getElementById('theme-toggle');
-            if (!toggleBtn) return;
-            const sunIcon = toggleBtn.querySelector('.sun');
-            const moonIcon = toggleBtn.querySelector('.moon');
-
+            const toggles = document.querySelectorAll('.theme-toggle');
+            
             const getStored = () => {
                 try { return localStorage.getItem('theme'); } catch (e) { return null; }
             };
@@ -77,14 +74,15 @@ const App = (() => {
 
             const applyTheme = (theme) => {
                 document.documentElement.setAttribute('data-theme', theme);
-                toggleBtn.setAttribute('aria-pressed', theme === 'dark');
-                if (theme === 'dark') {
-                    sunIcon.style.display = 'none';
-                    moonIcon.style.display = 'block';
-                } else {
-                    sunIcon.style.display = 'block';
-                    moonIcon.style.display = 'none';
-                }
+                toggles.forEach(btn => {
+                    btn.setAttribute('aria-pressed', theme === 'dark');
+                    const sun = btn.querySelector('.sun');
+                    const moon = btn.querySelector('.moon');
+                    if(sun && moon) {
+                        sun.style.display = theme === 'dark' ? 'none' : 'block';
+                        moon.style.display = theme === 'dark' ? 'block' : 'none';
+                    }
+                });
             };
 
             let current = getStored();
@@ -93,10 +91,12 @@ const App = (() => {
             }
             applyTheme(current);
 
-            toggleBtn.addEventListener('click', () => {
-                current = current === 'dark' ? 'light' : 'dark';
-                applyTheme(current);
-                setStored(current);
+            toggles.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    current = current === 'dark' ? 'light' : 'dark';
+                    applyTheme(current);
+                    setStored(current);
+                });
             });
         }
     };
