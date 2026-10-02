@@ -351,11 +351,16 @@ const App = (() => {
         init: async () => {
             try {
                 DataUI.techData = await utils.fetchJson(CONFIG.dataUrls.tech);
-                DataUI.renderWeapons();
             } catch (e) {
-                console.error('Failed to load tech data', e);
+                console.warn('Fetch failed for tech data, falling back to embedded data', e);
+                if (window.TECH_DATA && Array.isArray(window.TECH_DATA)) {
+                    DataUI.techData = window.TECH_DATA;
+                }
             }
-
+            if ((!DataUI.techData || DataUI.techData.length === 0) && window.TECH_DATA) {
+                DataUI.techData = window.TECH_DATA;
+            }
+            DataUI.renderWeapons();
             DataUI.renderPowerups();
         },
 

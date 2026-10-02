@@ -1,0 +1,20 @@
+{
+  "name": "automation-invitation",
+  "version": "1.0.0",
+  "description": "Automation Arena - Private test automation contest & invitation platform",
+  "main": "serve.js",
+  "scripts": {
+    "start": "node serve.js",
+    "dev": "node serve.js",
+    "score": "node scripts/score.js"
+  },
+  "keywords": [
+    "automation",
+    "testing",
+    "qa",
+    "orangehrm",
+    "leaderboard"
+  ],
+  "author": "Abeesh Sengottuvel",
+  "license": "MIT"
+}

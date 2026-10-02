@@ -32,13 +32,19 @@ When a player finishes their framework and sends you their repo link:
 3. Commit and push. The `score.yml` action will trigger automatically, run their tests, and update `data/results.json`.
 
 ## Local Development
-Since there is no build step, you can use any simple HTTP server to test locally:
+Run the local dev server with auto-launch:
 
 ```bash
-npx serve .
-# or
-python3 -m http.server
+# Option 1: Using npm (recommended)
+npm start
+
+# Option 2: Direct Node execution
+node serve.js
+
+# Option 3: Double click start.bat on Windows
 ```
+
+The server automatically picks an available port (e.g. `http://localhost:3000`), opens your default browser, and serves all assets with full CORS support. You can also directly open `index.html` in your browser.
 
 ## Security Note
 The `.github/workflows/score.yml` file uses a matrix strategy to run untrusted player code. 
