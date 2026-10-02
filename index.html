@@ -87,36 +87,38 @@
     <main id="main">
         <section id="hero" class="hero section">
             <div class="mesh-bg"></div>
-            <div class="hero-content">
-                <p class="eyebrow fade-up">A private invitation</p>
-                <h1 class="display fade-up stagger"><span id="guest-name">You're invited</span>.</h1>
-                <p class="subhead fade-up stagger">Automate 40 manual test cases for the OrangeHRM demo using any tool. More features, more points. Build the framework. Beat the clock.</p>
-                <div class="hero-actions fade-up stagger">
-                    <button id="accept-btn" class="btn primary magnetic">Accept the invitation</button>
-                    <a href="#story" class="text-link">See how it works</a>
+            <div class="hero-layout container">
+                <div class="hero-content text-center">
+                    <p class="eyebrow fade-up">A private invitation</p>
+                    <h1 class="display fade-up stagger"><span id="guest-name">You're invited</span>.</h1>
+                    <p class="subhead fade-up stagger">Automate 40 manual test cases for the OrangeHRM demo using any tool. More features, more points. Build the framework. Beat the clock.</p>
+                    <div class="hero-actions fade-up stagger">
+                        <button id="accept-btn" class="btn primary magnetic large">Accept the invitation</button>
+                        <a href="#rules" class="btn secondary large">Read the Rules</a>
+                    </div>
                 </div>
-            </div>
-            <div class="hero-visual fade-up">
-                <div class="test-runner glass card cursor-glow">
-                    <div class="runner-header">
-                        <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
-                        <div class="runner-title">arena_test.spec.ts</div>
-                    </div>
-                    <div class="runner-stats">
-                        <div class="progress-ring">
-                            <svg viewBox="0 0 36 36">
-                                <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                                <path class="circle" stroke-dasharray="92.5, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                            </svg>
+                <div class="hero-visual-center fade-up stagger">
+                    <div class="test-runner glass card cursor-glow">
+                        <div class="runner-header">
+                            <div class="dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+                            <div class="runner-title">arena_test.spec.ts</div>
                         </div>
-                        <div class="runner-numbers">
-                            <span class="pass-count tabular-nums">37/40</span>
-                            <span class="timer tabular-nums">01:42</span>
+                        <div class="runner-stats">
+                            <div class="progress-ring">
+                                <svg viewBox="0 0 36 36">
+                                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="circle" stroke-dasharray="92.5, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                            </div>
+                            <div class="runner-numbers">
+                                <span class="pass-count tabular-nums">37/40</span>
+                                <span class="timer tabular-nums">01:42</span>
+                            </div>
                         </div>
+                        <ul class="test-list" aria-hidden="true" id="runner-logs">
+                            <!-- Populated by JS -->
+                        </ul>
                     </div>
-                    <ul class="test-list" aria-hidden="true" id="runner-logs">
-                        <!-- Populated by JS -->
-                    </ul>
                 </div>
             </div>
         </section>
