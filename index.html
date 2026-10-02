@@ -67,7 +67,6 @@
                 <a href="#powerups">Power-ups</a>
                 <a href="#rules">Rules</a>
                 <a href="#scoring">Scoring</a>
-                <a href="#leaderboard">Leaderboard</a>
                 <a href="#faq">FAQ</a>
             </div>
             <div class="nav-actions">
@@ -141,7 +140,7 @@
                 <div class="story-step" data-step="3">
                     <div class="step-num">3</div>
                     <div class="step-content">
-                        <h2>Climb the board.</h2>
+                        <h2>Get your score.</h2>
                         <p>Send me your link. The scorer runs every 30 minutes, analyzing your pipeline.</p>
                         <p>The smartest framework takes the crown.</p>
                     </div>
@@ -313,46 +312,7 @@
             </div>
         </section>
 
-        <section id="leaderboard" class="leaderboard section pad-lg">
-            <div class="container">
-                <div class="lb-header">
-                    <h2>Leaderboard.</h2>
-                    <div class="lb-controls">
-                        <input type="text" id="lb-search" placeholder="Search players..." aria-label="Search players">
-                        <select id="lb-sort" aria-label="Sort by">
-                            <option value="score">Score</option>
-                            <option value="speed">Speed</option>
-                            <option value="tests">Tests Passed</option>
-                        </select>
-                        <button id="lb-refresh" class="icon-btn" aria-label="Refresh"><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg></button>
-                    </div>
-                </div>
-                <p class="caption text-muted" id="lb-updated">Last updated: Never</p>
-                
-                <div class="podium" id="lb-podium">
-                    <!-- Top 3 -->
-                </div>
 
-                <div class="lb-table-container">
-                    <table class="lb-table" aria-live="polite">
-                        <thead>
-                            <tr>
-                                <th>Rank</th>
-                                <th>Player</th>
-                                <th>Stack</th>
-                                <th>Passed</th>
-                                <th>Speed</th>
-                                <th>Score</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="lb-body">
-                            <!-- Populated by JS -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
 
         <section id="steps" class="steps section pad-lg">
             <div class="container">
@@ -371,7 +331,7 @@
                     <div class="card glass">
                         <div class="card-num">3</div>
                         <h3>Submit</h3>
-                        <p>Drop your public repository link to me in our personal chat. The Arena's CI pipeline will detect it, run the analysis, and map you on the board.</p>
+                        <p>Drop your public repository link to me in our personal chat. The Arena's CI pipeline will detect it, run the analysis, and verify your score.</p>
                     </div>
                 </div>
                 <div class="checklist mt-4 card">
@@ -429,8 +389,6 @@
         </div>
     </footer>
 
-    <!-- Hidden canvas for certificate generation -->
-    <canvas id="cert-canvas" width="1920" height="1080" style="display:none;"></canvas>
 
     <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
