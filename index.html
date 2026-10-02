@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Automation Arena - Build the framework. Beat the clock.">
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
@@ -80,24 +80,145 @@
                 <a href="#rules">Rules</a>
                 <a href="#scoring">Scoring</a>
                 <a href="#faq">FAQ</a>
-                <button class="theme-toggle icon-btn mobile-only-toggle" aria-label="Toggle Theme" aria-pressed="false" style="align-self: flex-start; margin-top: auto;">
-                    <svg class="sun" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <svg class="moon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                </button>
             </div>
             
             <div class="nav-actions">
-                <button class="theme-toggle icon-btn desktop-only-toggle" aria-label="Toggle Theme" aria-pressed="false">
+                <button class="theme-toggle icon-btn" aria-label="Toggle Theme" aria-pressed="false">
                     <svg class="sun" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     <svg class="moon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
-                <a href="#steps" class="btn pill nav-accept">Accept</a>
-                <button class="mobile-menu-btn icon-btn" aria-label="Menu" aria-expanded="false">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+                <a href="#steps" class="btn pill nav-accept desktop-only-action">Accept</a>
+                <button class="mobile-menu-btn icon-btn" aria-label="Open Navigation Menu" aria-expanded="false" id="mobile-menu-toggle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" fill="none"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
                 </button>
             </div>
         </div>
     </nav>
+
+    <!-- Apple Pro Mobile Menu Drawer (Fixed to Viewport, Native iOS Inset Grouped) -->
+    <div id="mobile-menu-drawer" class="mobile-menu-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop"></div>
+        <div class="mobile-drawer-sheet">
+            <!-- Apple VisionOS Style Header Bar -->
+            <div class="mobile-drawer-header">
+                <a href="#hero" class="mobile-drawer-brand">
+                    <span>Arena</span>
+                    <span class="apple-status-dot"></span>
+                </a>
+                
+                <div class="apple-header-controls">
+                    <button class="theme-toggle apple-ctrl-btn" aria-label="Toggle Theme" aria-pressed="false">
+                        <svg class="sun" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="moon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <span class="apple-ctrl-divider"></span>
+                    <button class="apple-ctrl-btn mobile-drawer-close" id="mobile-drawer-close" aria-label="Close Navigation">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Apple Inset Grouped Navigation Table -->
+            <div class="mobile-drawer-body">
+                <div class="apple-inset-group">
+                    <a href="#hero" class="apple-list-row active" data-nav="hero">
+                        <div class="apple-icon-tile tile-blue">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M13 2L3 14h7v8l10-12h-7l1-8z"/></svg>
+                        </div>
+                        <span class="apple-row-title">Overview</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="#weapons" class="apple-list-row" data-nav="weapons">
+                        <div class="apple-icon-tile tile-indigo">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                        </div>
+                        <span class="apple-row-title">Weapons</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="#powerups" class="apple-list-row" data-nav="powerups">
+                        <div class="apple-icon-tile tile-orange">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <span class="apple-row-title">Power-ups</span>
+                        <div class="apple-row-accessory">
+                            <span class="apple-pill-badge">+40 pts</span>
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="tests.html" class="apple-list-row" data-nav="tests">
+                        <div class="apple-icon-tile tile-green">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        </div>
+                        <span class="apple-row-title">Test Cases</span>
+                        <div class="apple-row-accessory">
+                            <span class="apple-pill-badge">40 specs</span>
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="#rules" class="apple-list-row" data-nav="rules">
+                        <div class="apple-icon-tile tile-pink">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3" ry="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <span class="apple-row-title">Rules & Timeline</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="#scoring" class="apple-list-row" data-nav="scoring">
+                        <div class="apple-icon-tile tile-purple">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        </div>
+                        <span class="apple-row-title">Scoring Rubric</span>
+                        <div class="apple-row-accessory">
+                            <span class="apple-pill-badge">140 pts</span>
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="#faq" class="apple-list-row" data-nav="faq">
+                        <div class="apple-icon-tile tile-gray">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <span class="apple-row-title">FAQ</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="invite.html" class="apple-list-row" data-nav="invite">
+                        <div class="apple-icon-tile tile-teal">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <span class="apple-row-title">Invite Builder</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Apple Style Bottom Actions -->
+                <div class="apple-drawer-actions">
+                    <a href="#steps" class="apple-primary-btn" id="mobile-drawer-accept-btn">
+                        <span>Accept the Challenge</span>
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                    <a href="Automation_Arena_Test_Cases.xlsx" download class="apple-tertiary-link">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span>Download Specs (.xlsx)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <main id="main">
         <section id="hero" class="hero section">
@@ -216,25 +337,63 @@
 
         <section id="benefits" class="benefits section pad-lg">
             <div class="container">
-                <div class="benefit-item reveal">
-                    <div class="b-icon">📁</div>
-                    <h3>Build a portfolio-ready framework.</h3>
+                <div class="section-header text-center" style="margin-bottom: var(--space-48);">
+                    <p class="eyebrow fade-up">Long-term Dividends</p>
+                    <h2 class="fade-up">Built for your career.</h2>
+                    <p class="subhead fade-up" style="margin: 0 auto;">
+                        Beyond the scoreboard: five permanent engineering assets you keep for life, whether you take first place or build your first framework.
+                    </p>
                 </div>
-                <div class="benefit-item reveal">
-                    <div class="b-icon">⚡</div>
-                    <h3>Gain real CI/CD pipeline experience.</h3>
-                </div>
-                <div class="benefit-item reveal">
-                    <div class="b-icon">💬</div>
-                    <h3>Create interview-ready talking points.</h3>
-                </div>
-                <div class="benefit-item reveal">
-                    <div class="b-icon">🧠</div>
-                    <h3>Learn new patterns from friends.</h3>
-                </div>
-                <div class="benefit-item reveal">
-                    <div class="b-icon">🏆</div>
-                    <h3>Secure ultimate bragging rights.</h3>
+                <div class="apple-benefits-grid">
+                    <div class="apple-benefit-card card glass fade-up">
+                        <div class="apple-benefit-icon apple-tile-blue">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <div class="apple-benefit-body">
+                            <h3 class="apple-benefit-title">Portfolio-Ready Framework</h3>
+                            <p class="apple-benefit-desc">A clean, production-grade test suite in a public GitHub repository that tangibly demonstrates your architectural craft to hiring teams.</p>
+                        </div>
+                    </div>
+
+                    <div class="apple-benefit-card card glass fade-up">
+                        <div class="apple-benefit-icon apple-tile-indigo">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                        <div class="apple-benefit-body">
+                            <h3 class="apple-benefit-title">Real CI/CD Pipeline Mastery</h3>
+                            <p class="apple-benefit-desc">Hands-on GitHub Actions workflow engineering: automated headless test runs on pull request, artifact archiving, and containerized runs.</p>
+                        </div>
+                    </div>
+
+                    <div class="apple-benefit-card card glass fade-up">
+                        <div class="apple-benefit-icon apple-tile-teal">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <div class="apple-benefit-body">
+                            <h3 class="apple-benefit-title">Interview Talking Points</h3>
+                            <p class="apple-benefit-desc">First-hand narratives on tackling flake, dynamic waiting, locator strategy, and test state isolation in complex enterprise apps.</p>
+                        </div>
+                    </div>
+
+                    <div class="apple-benefit-card card glass fade-up">
+                        <div class="apple-benefit-icon apple-tile-purple">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <div class="apple-benefit-body">
+                            <h3 class="apple-benefit-title">Architectural Cross-Pollination</h3>
+                            <p class="apple-benefit-desc">Exchange patterns with peers, compare Page Object vs Screenplay, and discover tooling choices outside your typical comfort zone.</p>
+                        </div>
+                    </div>
+
+                    <div class="apple-benefit-card card glass fade-up">
+                        <div class="apple-benefit-icon apple-tile-gold">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <div class="apple-benefit-body">
+                            <h3 class="apple-benefit-title">Elite Arena Bragging Rights</h3>
+                            <p class="apple-benefit-desc">Permanent standing on the leaderboard, bespoke achievement badges, and the pride of taking a full suite from zero to one.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -434,73 +593,80 @@
                     </p>
                 </div>
 
-                <div class="score-bar-wrapper card glass fade-up" style="padding: 28px; margin-bottom: 36px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-                        <span style="font-weight: 700; font-size: 16px;">Points Distribution</span>
-                        <span style="font-weight: 700; font-size: 16px; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">140 Total Points</span>
+                <div class="score-bar-wrapper card glass fade-up" style="padding: 24px 28px; margin-bottom: 32px;">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px;">
+                        <span style="font-weight: 600; font-size: 17px; letter-spacing: -0.02em;">Distribution Model</span>
+                        <span class="apple-pill-badge" style="font-size: 13px; font-weight: 600; padding: 4px 10px; color: var(--color-primary); background: rgba(0, 122, 255, 0.1);">140 Total Points</span>
                     </div>
                     
-                    <div class="score-bar" style="height: 36px; border-radius: var(--radius-pill); overflow: hidden; display: flex; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);">
-                        <div class="seg" style="width: 28.57%; background: #30d158;" title="Coverage: 40 pts">40</div>
-                        <div class="seg" style="width: 14.28%; background: #0a84ff;" title="Stability: 20 pts">20</div>
-                        <div class="seg" style="width: 10.71%; background: #bf5af2;" title="Architecture: 15 pts">15</div>
-                        <div class="seg" style="width: 7.14%; background: #5e5ce6;" title="Reporting: 10 pts">10</div>
-                        <div class="seg" style="width: 7.14%; background: #64d2ff; color: #1d1d1f;" title="CI/CD: 10 pts">10</div>
-                        <div class="seg" style="width: 3.57%; background: #ff9f0a;" title="Speed: 5 pts">5</div>
-                        <div class="seg" style="width: 28.57%; background: #ffd60a; color: #1d1d1f;" title="Power-ups: 40 pts">40</div>
+                    <!-- Apple Vision Continuous Spectrum Bar -->
+                    <div class="apple-spectrum-bar" role="progressbar" aria-valuenow="140" aria-valuemin="0" aria-valuemax="140" aria-label="140-point distribution">
+                        <div class="apple-spectrum-seg" style="width: 28.57%; background: #34c759;" title="Coverage: 40 pts"></div>
+                        <div class="apple-spectrum-seg" style="width: 14.28%; background: #007aff;" title="Stability: 20 pts"></div>
+                        <div class="apple-spectrum-seg" style="width: 10.71%; background: #af52de;" title="Architecture: 15 pts"></div>
+                        <div class="apple-spectrum-seg" style="width: 7.14%; background: #5856d6;" title="Reporting: 10 pts"></div>
+                        <div class="apple-spectrum-seg" style="width: 7.14%; background: #30b0c7;" title="CI/CD: 10 pts"></div>
+                        <div class="apple-spectrum-seg" style="width: 3.57%; background: #ff9500;" title="Speed: 5 pts"></div>
+                        <div class="apple-spectrum-seg" style="width: 28.57%; background: #ffcc00;" title="Power-ups: 40 pts"></div>
                     </div>
 
-                    <div class="score-legend" style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; font-size: 13px;">
-                        <span><span class="dot" style="background:#30d158;"></span> Coverage (40)</span>
-                        <span><span class="dot" style="background:#0a84ff;"></span> Stability (20)</span>
-                        <span><span class="dot" style="background:#bf5af2;"></span> Architecture (15)</span>
-                        <span><span class="dot" style="background:#5e5ce6;"></span> Reporting (10)</span>
-                        <span><span class="dot" style="background:#64d2ff;"></span> CI/CD (10)</span>
-                        <span><span class="dot" style="background:#ff9f0a;"></span> Speed (5)</span>
-                        <span><span class="dot" style="background:#ffd60a;"></span> Power-ups (40)</span>
+                    <div class="apple-spectrum-legend">
+                        <div class="apple-legend-pill"><span class="apple-legend-dot" style="background:#34c759;"></span><span class="apple-legend-name">Coverage</span><span class="apple-legend-val">40</span></div>
+                        <div class="apple-legend-pill"><span class="apple-legend-dot" style="background:#007aff;"></span><span class="apple-legend-name">Stability</span><span class="apple-legend-val">20</span></div>
+                        <div class="apple-legend-pill"><span class="apple-legend-dot" style="background:#af52de;"></span><span class="apple-legend-name">Architecture</span><span class="apple-legend-val">15</span></div>
+                        <div class="apple-legend-pill"><span class="apple-legend-dot" style="background:#5856d6;"></span><span class="apple-legend-name">Reporting</span><span class="apple-legend-val">10</span></div>
+                        <div class="apple-legend-pill"><span class="apple-legend-dot" style="background:#30b0c7;"></span><span class="apple-legend-name">CI/CD</span><span class="apple-legend-val">10</span></div>
+                        <div class="apple-legend-pill"><span class="apple-legend-dot" style="background:#ff9500;"></span><span class="apple-legend-name">Speed</span><span class="apple-legend-val">5</span></div>
+                        <div class="apple-legend-pill"><span class="apple-legend-dot" style="background:#ffcc00;"></span><span class="apple-legend-name">Power-ups</span><span class="apple-legend-val">40</span></div>
                     </div>
                 </div>
 
-                <div class="card glass fade-up" style="padding: 32px; margin-bottom: 36px;">
-                    <h3 style="margin-bottom: 20px; font-size: 20px;">Scorecard & Criteria</h3>
-                    <div class="table-responsive">
+                <!-- Desktop Clean Table & Mobile Apple Metric Cards -->
+                <div class="card glass fade-up" style="padding: 28px; margin-bottom: 32px;">
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px;">
+                        <h3 style="font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin: 0;">Scorecard & Criteria</h3>
+                        <span class="caption text-muted">Automated verification</span>
+                    </div>
+
+                    <!-- Desktop View Table -->
+                    <div class="table-responsive desktop-only-table">
                         <table class="clean-table">
                             <thead>
                                 <tr>
                                     <th>Category</th>
-                                    <th>Max</th>
+                                    <th>Max Points</th>
                                     <th>Evaluation Criteria</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><strong>Test Coverage</strong></td>
-                                    <td><span style="font-weight: 700; color: #30d158;">40 pts</span></td>
+                                    <td><span style="font-weight: 700; color: #34c759;">40 pts</span></td>
                                     <td>1 point per passing test case across the 40 OrangeHRM specifications.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Execution Stability</strong></td>
-                                    <td><span style="font-weight: 700; color: #0a84ff;">20 pts</span></td>
+                                    <td><span style="font-weight: 700; color: #007aff;">20 pts</span></td>
                                     <td>Evaluated across 3 repeated runs. Zero variance = full 20 pts. Scaled down by flakiness.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Architecture & Patterns</strong></td>
-                                    <td><span style="font-weight: 700; color: #bf5af2;">15 pts</span></td>
+                                    <td><span style="font-weight: 700; color: #af52de;">15 pts</span></td>
                                     <td>POM / Screenplay implementation, clean separation of concerns, and locator resilience.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Reporting & Artifacts</strong></td>
-                                    <td><span style="font-weight: 700; color: #5e5ce6;">10 pts</span></td>
+                                    <td><span style="font-weight: 700; color: #5856d6;">10 pts</span></td>
                                     <td>Allure, Extent, or HTML execution reports with screenshots on failure and step logs.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>CI/CD Pipeline</strong></td>
-                                    <td><span style="font-weight: 700; color: #64d2ff;">10 pts</span></td>
+                                    <td><span style="font-weight: 700; color: #30b0c7;">10 pts</span></td>
                                     <td>Automated GitHub Actions workflow triggered on push/PR with clean container setup.</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Execution Speed</strong></td>
-                                    <td><span style="font-weight: 700; color: #ff9f0a;">5 pts</span></td>
+                                    <td><span style="font-weight: 700; color: #ff9500;">5 pts</span></td>
                                     <td>Relative speed bonus among players with 30+ passing tests (linear scale: 5 to 1 pt).</td>
                                 </tr>
                                 <tr>
@@ -511,28 +677,165 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Mobile Apple Inset Metric Cards -->
+                    <div class="mobile-only-metrics">
+                        <!-- 1. Test Coverage -->
+                        <div class="apple-metric-card">
+                            <div class="apple-metric-top">
+                                <div class="apple-metric-left">
+                                    <div class="apple-icon-tile tile-green">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="apple-metric-title">Test Coverage</div>
+                                        <div class="apple-metric-sub">40 of 140 points (28.5%)</div>
+                                    </div>
+                                </div>
+                                <span class="apple-metric-pill" style="color: #34c759; background: rgba(52, 199, 89, 0.12);">40 pts</span>
+                            </div>
+                            <div class="apple-metric-meter"><div class="apple-metric-fill" style="width: 28.57%; background: #34c759;"></div></div>
+                            <p class="apple-metric-desc">1 point per passing test case across the 40 OrangeHRM specifications.</p>
+                        </div>
+
+                        <!-- 2. Execution Stability -->
+                        <div class="apple-metric-card">
+                            <div class="apple-metric-top">
+                                <div class="apple-metric-left">
+                                    <div class="apple-icon-tile tile-blue">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="apple-metric-title">Execution Stability</div>
+                                        <div class="apple-metric-sub">20 of 140 points (14.3%)</div>
+                                    </div>
+                                </div>
+                                <span class="apple-metric-pill" style="color: #007aff; background: rgba(0, 122, 255, 0.12);">20 pts</span>
+                            </div>
+                            <div class="apple-metric-meter"><div class="apple-metric-fill" style="width: 14.28%; background: #007aff;"></div></div>
+                            <p class="apple-metric-desc">Evaluated across 3 repeated runs. Zero variance = full 20 pts. Scaled down by flakiness.</p>
+                        </div>
+
+                        <!-- 3. Architecture & Patterns -->
+                        <div class="apple-metric-card">
+                            <div class="apple-metric-top">
+                                <div class="apple-metric-left">
+                                    <div class="apple-icon-tile tile-purple">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="apple-metric-title">Architecture & Patterns</div>
+                                        <div class="apple-metric-sub">15 of 140 points (10.7%)</div>
+                                    </div>
+                                </div>
+                                <span class="apple-metric-pill" style="color: #af52de; background: rgba(175, 82, 222, 0.12);">15 pts</span>
+                            </div>
+                            <div class="apple-metric-meter"><div class="apple-metric-fill" style="width: 10.71%; background: #af52de;"></div></div>
+                            <p class="apple-metric-desc">POM / Screenplay implementation, clean separation of concerns, and locator resilience.</p>
+                        </div>
+
+                        <!-- 4. Reporting & Artifacts -->
+                        <div class="apple-metric-card">
+                            <div class="apple-metric-top">
+                                <div class="apple-metric-left">
+                                    <div class="apple-icon-tile tile-indigo">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="apple-metric-title">Reporting & Artifacts</div>
+                                        <div class="apple-metric-sub">10 of 140 points (7.1%)</div>
+                                    </div>
+                                </div>
+                                <span class="apple-metric-pill" style="color: #5856d6; background: rgba(88, 86, 214, 0.12);">10 pts</span>
+                            </div>
+                            <div class="apple-metric-meter"><div class="apple-metric-fill" style="width: 7.14%; background: #5856d6;"></div></div>
+                            <p class="apple-metric-desc">Allure, Extent, or HTML execution reports with screenshots on failure and step logs.</p>
+                        </div>
+
+                        <!-- 5. CI/CD Pipeline -->
+                        <div class="apple-metric-card">
+                            <div class="apple-metric-top">
+                                <div class="apple-metric-left">
+                                    <div class="apple-icon-tile tile-teal">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="apple-metric-title">CI/CD Pipeline</div>
+                                        <div class="apple-metric-sub">10 of 140 points (7.1%)</div>
+                                    </div>
+                                </div>
+                                <span class="apple-metric-pill" style="color: #30b0c7; background: rgba(48, 176, 199, 0.12);">10 pts</span>
+                            </div>
+                            <div class="apple-metric-meter"><div class="apple-metric-fill" style="width: 7.14%; background: #30b0c7;"></div></div>
+                            <p class="apple-metric-desc">Automated GitHub Actions workflow triggered on push/PR with clean container setup.</p>
+                        </div>
+
+                        <!-- 6. Execution Speed -->
+                        <div class="apple-metric-card">
+                            <div class="apple-metric-top">
+                                <div class="apple-metric-left">
+                                    <div class="apple-icon-tile tile-orange">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="apple-metric-title">Execution Speed</div>
+                                        <div class="apple-metric-sub">5 of 140 points (3.6%)</div>
+                                    </div>
+                                </div>
+                                <span class="apple-metric-pill" style="color: #ff9500; background: rgba(255, 149, 0, 0.12);">5 pts</span>
+                            </div>
+                            <div class="apple-metric-meter"><div class="apple-metric-fill" style="width: 3.57%; background: #ff9500;"></div></div>
+                            <p class="apple-metric-desc">Relative speed bonus among players with 30+ passing tests (linear scale: 5 to 1 pt).</p>
+                        </div>
+
+                        <!-- 7. Bonus Power-ups -->
+                        <div class="apple-metric-card">
+                            <div class="apple-metric-top">
+                                <div class="apple-metric-left">
+                                    <div class="apple-icon-tile tile-yellow">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    </div>
+                                    <div>
+                                        <div class="apple-metric-title">Bonus Power-ups</div>
+                                        <div class="apple-metric-sub">40 of 140 points (28.5%)</div>
+                                    </div>
+                                </div>
+                                <span class="apple-metric-pill" style="color: #d4a000; background: rgba(255, 204, 0, 0.16);">40 pts</span>
+                            </div>
+                            <div class="apple-metric-meter"><div class="apple-metric-fill" style="width: 28.57%; background: #ffcc00;"></div></div>
+                            <p class="apple-metric-desc">+4 pts for each implemented power-up (Docker, API hybrid, Axe a11y, k6 perf, BDD, etc.).</p>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Apple Style Achievement Badges -->
                 <div class="cards-row" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px;">
-                    <div class="card glass text-center" style="padding: 24px;">
-                        <div style="font-size: 32px; margin-bottom: 8px;">🎯</div>
-                        <h4 style="font-size: 16px; margin-bottom: 4px;">Perfect 40</h4>
+                    <div class="card glass text-center apple-badge-card" style="padding: 24px;">
+                        <div class="apple-badge-icon apple-tile-green">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Perfect 40</h4>
                         <p class="caption text-muted" style="margin: 0;">Automate and pass all 40 test specifications</p>
                     </div>
-                    <div class="card glass text-center" style="padding: 24px;">
-                        <div style="font-size: 32px; margin-bottom: 8px;">⚡</div>
-                        <h4 style="font-size: 16px; margin-bottom: 4px;">Speed Demon</h4>
+                    <div class="card glass text-center apple-badge-card" style="padding: 24px;">
+                        <div class="apple-badge-icon apple-tile-orange">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Speed Demon</h4>
                         <p class="caption text-muted" style="margin: 0;">Fastest passing execution time in the arena</p>
                     </div>
-                    <div class="card glass text-center" style="padding: 24px;">
-                        <div style="font-size: 32px; margin-bottom: 8px;">🛡️</div>
-                        <h4 style="font-size: 16px; margin-bottom: 4px;">Stable as a Rock</h4>
+                    <div class="card glass text-center apple-badge-card" style="padding: 24px;">
+                        <div class="apple-badge-icon apple-tile-blue">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Stable as a Rock</h4>
                         <p class="caption text-muted" style="margin: 0;">Zero flakiness across 3 consecutive test runs</p>
                     </div>
-                    <div class="card glass text-center" style="padding: 24px;">
-                        <div style="font-size: 32px; margin-bottom: 8px;">🚀</div>
-                        <h4 style="font-size: 16px; margin-bottom: 4px;">Pipeline Pro</h4>
-                        <p class="caption text-muted" style="margin: 0;">Flawless headless container execution in CI</p>
+                    <div class="card glass text-center apple-badge-card" style="padding: 24px;">
+                        <div class="apple-badge-icon apple-tile-purple">
+                            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        </div>
+                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">Pipeline Pro</h4>
                     </div>
                 </div>
             </div>
@@ -646,6 +949,11 @@
         </div>
     </footer>
 
+
+    <!-- Floating Scroll to Top Button for Mobile & Desktop -->
+    <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
 
     <!-- Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>

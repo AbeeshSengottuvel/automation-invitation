@@ -1,8 +1,123 @@
 /**
  * invite.js - Private Builder Script
+ * Handles link generation, preview updates, theme toggling, and mobile navigation.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ======================================================================
+    // 1. THEME MANAGER & MOBILE DRAWER
+    // ======================================================================
+    const toggles = document.querySelectorAll('.theme-toggle');
+    const themePills = document.querySelectorAll('[data-set-theme]');
+    const mobileBtn = document.getElementById('mobile-menu-toggle');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const closeBtn = document.getElementById('mobile-drawer-close');
+    const backdrop = document.getElementById('mobile-drawer-backdrop');
+
+    const getStored = () => {
+        try { return localStorage.getItem('theme'); } catch (e) { return null; }
+    };
+    const setStored = (theme) => {
+        try { localStorage.setItem('theme', theme); } catch (e) {}
+    };
+    const applyTheme = (theme) => {
+        document.documentElement.setAttribute('data-theme', theme);
+        toggles.forEach(btn => {
+            btn.setAttribute('aria-pressed', theme === 'dark');
+            const sun = btn.querySelector('.sun');
+            const moon = btn.querySelector('.moon');
+            if (sun && moon) {
+                sun.style.display = theme === 'dark' ? 'none' : 'block';
+                moon.style.display = theme === 'dark' ? 'block' : 'none';
+            }
+        });
+        themePills.forEach(p => {
+            if (p.getAttribute('data-set-theme') === theme) {
+                p.classList.add('active');
+            } else {
+                p.classList.remove('active');
+            }
+        });
+    };
+
+    let current = getStored();
+    if (current !== 'dark') current = 'light';
+    applyTheme(current);
+
+    toggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+            current = current === 'dark' ? 'light' : 'dark';
+            applyTheme(current);
+            setStored(current);
+        });
+    });
+
+    themePills.forEach(pill => {
+        pill.addEventListener('click', () => {
+            const theme = pill.getAttribute('data-set-theme');
+            if (theme) {
+                current = theme;
+                applyTheme(current);
+                setStored(current);
+            }
+        });
+    });
+
+    // Mobile menu drawer
+    const openDrawer = () => {
+        if (!drawer) return;
+        drawer.classList.add('is-open');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('menu-open');
+        if (mobileBtn) {
+            mobileBtn.setAttribute('aria-expanded', 'true');
+            mobileBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" fill="none"><path d="M18 6L6 18M6 6l12 12" /></svg>';
+        }
+    };
+    const closeDrawer = () => {
+        if (!drawer) return;
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('menu-open');
+        if (mobileBtn) {
+            mobileBtn.setAttribute('aria-expanded', 'false');
+            mobileBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" fill="none"><path d="M4 6h16M4 12h16M4 18h16" /></svg>';
+        }
+    };
+
+    if (mobileBtn && drawer) {
+        mobileBtn.addEventListener('click', () => {
+            if (drawer.classList.contains('is-open')) {
+                closeDrawer();
+            } else {
+                openDrawer();
+            }
+        });
+    }
+    closeBtn?.addEventListener('click', closeDrawer);
+    backdrop?.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && drawer?.classList.contains('is-open')) closeDrawer();
+    });
+
+    // Scroll to Top button
+    const scrollTopBtn = document.getElementById('scroll-top-btn');
+    if (scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 350) {
+                scrollTopBtn.classList.add('is-visible');
+            } else {
+                scrollTopBtn.classList.remove('is-visible');
+            }
+        }, { passive: true });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // ======================================================================
+    // 2. BUILDER CONTROLS & LINK GENERATOR
+    // ======================================================================
     const input = document.getElementById('names-input');
     const genBtn = document.getElementById('generate-btn');
     const copyAllBtn = document.getElementById('copy-all-btn');
@@ -72,9 +187,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const span = document.createElement('span');
                 span.style.overflow = 'hidden';
                 span.style.textOverflow = 'ellipsis';
-                span.style.whiteSpace = 'nowrap';
-                span.style.marginRight = '12px';
-                span.textContent = `${clean}: ${url}`;
+                span.style.wordBreak = 'break-all';
+                span.style.flex = '1';
+                span.innerHTML = `<strong>${clean}</strong><br><small style="color:var(--text-muted);font-size:11.5px;">${url}</small>`;
                 
                 const actions = document.createElement('div');
                 actions.className = 'link-actions';

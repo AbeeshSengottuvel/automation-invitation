@@ -64,6 +64,7 @@ const App = (() => {
     const ThemeManager = {
         init: () => {
             const toggles = document.querySelectorAll('.theme-toggle');
+            const themePills = document.querySelectorAll('[data-set-theme]');
             
             const getStored = () => {
                 try { return localStorage.getItem('theme'); } catch (e) { return null; }
@@ -83,6 +84,13 @@ const App = (() => {
                         moon.style.display = theme === 'dark' ? 'block' : 'none';
                     }
                 });
+                themePills.forEach(p => {
+                    if (p.getAttribute('data-set-theme') === theme) {
+                        p.classList.add('active');
+                    } else {
+                        p.classList.remove('active');
+                    }
+                });
             };
 
             let current = getStored();
@@ -98,6 +106,59 @@ const App = (() => {
                     setStored(current);
                 });
             });
+
+            themePills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const theme = pill.getAttribute('data-set-theme');
+                    if (theme) {
+                        current = theme;
+                        applyTheme(current);
+                        setStored(current);
+                    }
+                });
+            });
+        }
+    };
+
+    // Unified Accept Challenge / Invitation Handler
+    const triggerAcceptChallenge = (e) => {
+        if (e && e.preventDefault) {
+            e.preventDefault();
+        }
+
+        // Celebratory Apple-style Confetti
+        if (typeof confetti !== 'undefined' && !utils.prefersReducedMotion()) {
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 },
+                colors: ['#0071e3', '#34c759', '#ff9500', '#af52de', '#ff2d55']
+            });
+        }
+
+        const stepsSection = document.getElementById('steps');
+        if (stepsSection) {
+            const stepsHeading = stepsSection.querySelector('h2') || stepsSection;
+            stepsHeading.scrollIntoView({ behavior: 'smooth' });
+
+            try {
+                history.pushState(null, '', '#steps');
+            } catch (err) {}
+
+            setTimeout(() => {
+                const firstStep = document.querySelector('.step-cards .card');
+                if (firstStep) {
+                    firstStep.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease';
+                    firstStep.style.transform = 'scale(1.04)';
+                    firstStep.style.boxShadow = '0 12px 32px rgba(0, 113, 227, 0.2)';
+                    firstStep.style.borderColor = 'var(--apple-blue, #0071e3)';
+                    setTimeout(() => {
+                        firstStep.style.transform = '';
+                        firstStep.style.boxShadow = '';
+                        firstStep.style.borderColor = '';
+                    }, 700);
+                }
+            }, 650);
         }
     };
 
@@ -112,26 +173,25 @@ const App = (() => {
                 // If opening directly to a section (e.g. from tests.html to #rules, #scoring), bypass overlay
                 if (window.location.hash && window.location.hash !== '#hero') {
                     overlay.style.display = 'none';
-                    return;
-                }
-
-                const hasSeen = (() => {
-                    try { return sessionStorage.getItem('seenIntro'); } catch(e) { return false; }
-                })();
-                
-                if (hasSeen || utils.prefersReducedMotion()) {
-                    overlay.style.display = 'none';
                 } else {
-                    setTimeout(() => {
-                        overlay.style.opacity = '0';
-                        setTimeout(() => overlay.style.display = 'none', 600);
-                        try { sessionStorage.setItem('seenIntro', 'true'); } catch(e){}
-                    }, 1200);
+                    const hasSeen = (() => {
+                        try { return sessionStorage.getItem('seenIntro'); } catch(e) { return false; }
+                    })();
+                    
+                    if (hasSeen || utils.prefersReducedMotion()) {
+                        overlay.style.display = 'none';
+                    } else {
+                        setTimeout(() => {
+                            overlay.style.opacity = '0';
+                            setTimeout(() => overlay.style.display = 'none', 600);
+                            try { sessionStorage.setItem('seenIntro', 'true'); } catch(e){}
+                        }, 1200);
 
-                    // Skip on interaction
-                    const skip = () => { overlay.style.display = 'none'; try { sessionStorage.setItem('seenIntro', 'true'); } catch(e){} };
-                    overlay.addEventListener('click', skip);
-                    document.addEventListener('keydown', skip, { once: true });
+                        // Skip on interaction
+                        const skip = () => { overlay.style.display = 'none'; try { sessionStorage.setItem('seenIntro', 'true'); } catch(e){} };
+                        overlay.addEventListener('click', skip);
+                        document.addEventListener('keydown', skip, { once: true });
+                    }
                 }
             }
 
@@ -145,27 +205,17 @@ const App = (() => {
                 }
             }
 
-            // Accept Button
+            // Accept Button in Hero
             const acceptBtn = document.getElementById('accept-btn');
             if (acceptBtn) {
-                acceptBtn.addEventListener('click', () => {
-                    if (typeof confetti !== 'undefined' && !utils.prefersReducedMotion()) {
-                        confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-                    }
-                    document.querySelector('#steps').scrollIntoView({ behavior: 'smooth' });
-                    setTimeout(() => {
-                        const firstStep = document.querySelector('.step-cards .card');
-                        if(firstStep) {
-                            firstStep.style.transform = 'scale(1.05)';
-                            firstStep.style.boxShadow = 'var(--shadow-3)';
-                            setTimeout(() => {
-                                firstStep.style.transform = '';
-                                firstStep.style.boxShadow = '';
-                            }, 500);
-                        }
-                    }, 800);
-                });
+                acceptBtn.addEventListener('click', triggerAcceptChallenge);
             }
+
+            // Accept Link in Header Nav
+            const navAcceptBtns = document.querySelectorAll('.nav-accept');
+            navAcceptBtns.forEach(btn => {
+                btn.addEventListener('click', triggerAcceptChallenge);
+            });
         }
     };
 
@@ -250,10 +300,9 @@ const App = (() => {
     // ======================================================================
     const ScrollLogic = {
         init: () => {
-            if (utils.prefersReducedMotion()) return;
-
             // Nav Highlighting (Apple-style ScrollSpy)
             const navLinks = document.querySelectorAll('.nav-links a');
+            const mobileLinks = document.querySelectorAll('.apple-list-row, .mobile-nav-link');
             const sections = Array.from(document.querySelectorAll('section[id]'));
 
             const updateActiveNav = () => {
@@ -277,6 +326,16 @@ const App = (() => {
                     if (href && (href === `#${currentSection}` || href.endsWith(`#${currentSection}`))) {
                         link.classList.add('active');
                     } else if (href && !href.includes('tests.html')) {
+                        link.classList.remove('active');
+                    }
+                });
+
+                mobileLinks.forEach(link => {
+                    const dataNav = link.getAttribute('data-nav');
+                    const href = link.getAttribute('href');
+                    if (dataNav === currentSection || (href && href.endsWith(`#${currentSection}`))) {
+                        link.classList.add('active');
+                    } else if (dataNav !== 'tests' && dataNav !== 'invite') {
                         link.classList.remove('active');
                     }
                 });
@@ -317,20 +376,106 @@ const App = (() => {
             };
             window.addEventListener('load', handleHashOnLoad);
 
-            // Mobile Menu
+            // Super Senior Mobile Menu Controller
             const mobileBtn = document.querySelector('.mobile-menu-btn');
-            const navLinksContainer = document.querySelector('.nav-links');
-            if (mobileBtn) {
+            const drawer = document.getElementById('mobile-menu-drawer');
+            const closeBtn = document.getElementById('mobile-drawer-close');
+            const backdrop = document.getElementById('mobile-drawer-backdrop');
+            const drawerAcceptBtn = document.getElementById('mobile-drawer-accept-btn');
+
+            const openDrawer = () => {
+                if (!drawer) return;
+                drawer.classList.add('is-open');
+                drawer.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('menu-open');
+                if (mobileBtn) {
+                    mobileBtn.setAttribute('aria-expanded', 'true');
+                    mobileBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" fill="none"><path d="M18 6L6 18M6 6l12 12" /></svg>';
+                }
+            };
+
+            const closeDrawer = () => {
+                if (!drawer) return;
+                drawer.classList.remove('is-open');
+                drawer.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('menu-open');
+                if (mobileBtn) {
+                    mobileBtn.setAttribute('aria-expanded', 'false');
+                    mobileBtn.innerHTML = '<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 6h16M4 12h16M4 18h16" /></svg>';
+                }
+            };
+
+            if (mobileBtn && drawer) {
                 mobileBtn.addEventListener('click', () => {
-                    const expanded = mobileBtn.getAttribute('aria-expanded') === 'true';
-                    mobileBtn.setAttribute('aria-expanded', !expanded);
-                    navLinksContainer.classList.toggle('open');
-                });
-                navLinksContainer.addEventListener('click', (e) => {
-                    if (e.target.tagName === 'A') {
-                        mobileBtn.setAttribute('aria-expanded', 'false');
-                        navLinksContainer.classList.remove('open');
+                    const isOpen = drawer.classList.contains('is-open');
+                    if (isOpen) {
+                        closeDrawer();
+                    } else {
+                        openDrawer();
                     }
+                });
+
+                if (window.location.search.includes('drawer=open') || window.location.hash === '#menu') {
+                    setTimeout(openDrawer, 150);
+                }
+            }
+
+            closeBtn?.addEventListener('click', closeDrawer);
+            backdrop?.addEventListener('click', closeDrawer);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && drawer?.classList.contains('is-open')) {
+                    closeDrawer();
+                }
+            });
+
+            // Handle mobile navigation link taps
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    const href = link.getAttribute('href');
+                    if (href && (href.startsWith('#') || href.startsWith('index.html#'))) {
+                        const targetId = href.split('#')[1];
+                        const target = document.getElementById(targetId);
+                        if (target) {
+                            e.preventDefault();
+                            closeDrawer();
+                            setTimeout(() => {
+                                target.scrollIntoView({ behavior: 'smooth' });
+                                history.pushState(null, '', `#${targetId}`);
+                                updateActiveNav();
+                            }, 120);
+                        } else {
+                            closeDrawer();
+                        }
+                    } else {
+                        closeDrawer();
+                    }
+                });
+            });
+
+            if (drawerAcceptBtn) {
+                drawerAcceptBtn.addEventListener('click', (e) => {
+                    if (e && e.preventDefault) e.preventDefault();
+                    closeDrawer();
+                    setTimeout(() => {
+                        triggerAcceptChallenge();
+                    }, 220);
+                });
+            }
+
+            // Floating Scroll to Top button
+            const scrollTopBtn = document.getElementById('scroll-top-btn');
+            if (scrollTopBtn) {
+                window.addEventListener('scroll', utils.debounce(() => {
+                    if (window.scrollY > 350) {
+                        scrollTopBtn.classList.add('is-visible');
+                    } else {
+                        scrollTopBtn.classList.remove('is-visible');
+                    }
+                }, 30), { passive: true });
+
+                scrollTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
 
@@ -441,7 +586,7 @@ const App = (() => {
                         <label class="compare-label">
                             <input type="checkbox" value="${t.id}" class="compare-cb"> Compare
                         </label>
-                        <a href="${t.url}" target="_blank" rel="noopener noreferrer" class="text-link">Learn</a>
+                        <a href="${t.url}" target="_blank" rel="noopener noreferrer" class="text-link">Learn &rarr;</a>
                     </div>
                 </div>
             `).join('');
@@ -507,21 +652,83 @@ const App = (() => {
             const grid = document.getElementById('powerup-grid');
             if(!grid) return;
             const pups = [
-                { id: 'ci', name: 'CI/CD Pipeline', desc: 'Automated workflow runs', icon: '⚙️' },
-                { id: 'docker', name: 'Docker', desc: 'Containerized execution', icon: '🐳' },
-                { id: 'report', name: 'Reporting', desc: 'Allure or Extent integration', icon: '📊' },
-                { id: 'pom', name: 'Design Patterns', desc: 'POM / Screenplay', icon: '🧩' },
-                { id: 'hybrid', name: 'Hybrid Testing', desc: 'API setup + UI checks', icon: '⚡' },
-                { id: 'data', name: 'Data-driven', desc: 'Externalized test data', icon: '📁' },
-                { id: 'parallel', name: 'Parallel', desc: 'Multi-threaded execution', icon: '🚀' },
-                { id: 'a11y', name: 'Accessibility', desc: 'Axe core integration', icon: '👁️' },
-                { id: 'perf', name: 'Performance', desc: 'Lighthouse or k6', icon: '⏱️' },
-                { id: 'bdd', name: 'BDD', desc: 'Gherkin / Cucumber', icon: '🥒' }
+                { 
+                    id: 'ci', 
+                    name: 'CI/CD Pipeline', 
+                    desc: 'Automated workflow runs', 
+                    tileClass: 'tile-blue',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>' 
+                },
+                { 
+                    id: 'docker', 
+                    name: 'Docker', 
+                    desc: 'Containerized execution', 
+                    tileClass: 'tile-teal',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>' 
+                },
+                { 
+                    id: 'report', 
+                    name: 'Reporting', 
+                    desc: 'Allure or Extent integration', 
+                    tileClass: 'tile-purple',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>' 
+                },
+                { 
+                    id: 'pom', 
+                    name: 'Design Patterns', 
+                    desc: 'POM / Screenplay', 
+                    tileClass: 'tile-indigo',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>' 
+                },
+                { 
+                    id: 'hybrid', 
+                    name: 'Hybrid Testing', 
+                    desc: 'API setup + UI checks', 
+                    tileClass: 'tile-orange',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>' 
+                },
+                { 
+                    id: 'data', 
+                    name: 'Data-driven', 
+                    desc: 'Externalized test data', 
+                    tileClass: 'tile-green',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>' 
+                },
+                { 
+                    id: 'parallel', 
+                    name: 'Parallel', 
+                    desc: 'Multi-threaded execution', 
+                    tileClass: 'tile-pink',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="15" x2="23" y2="15"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="15" x2="4" y2="15"/></svg>' 
+                },
+                { 
+                    id: 'a11y', 
+                    name: 'Accessibility', 
+                    desc: 'Axe core integration', 
+                    tileClass: 'tile-teal',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/><path d="M7 13h10"/><path d="M12 13v8"/><path d="M9 21l3-4 3 4"/></svg>' 
+                },
+                { 
+                    id: 'perf', 
+                    name: 'Performance', 
+                    desc: 'Lighthouse or k6', 
+                    tileClass: 'tile-yellow',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' 
+                },
+                { 
+                    id: 'bdd', 
+                    name: 'BDD', 
+                    desc: 'Gherkin / Cucumber', 
+                    tileClass: 'tile-green',
+                    svg: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>' 
+                }
             ];
 
             grid.innerHTML = pups.map(p => `
                 <div class="bento-tile card glass cursor-glow">
-                    <div class="bento-icon">${p.icon}</div>
+                    <div class="apple-icon-tile ${p.tileClass}" style="width: 34px; height: 34px; border-radius: 9px; margin-bottom: 12px;">
+                        ${p.svg}
+                    </div>
                     <h3>${p.name}</h3>
                     <p class="caption text-muted">${p.desc}</p>
                     <div class="bento-pts">+4 pts</div>

@@ -10,7 +10,7 @@ const path = require('path');
 const { exec } = require('child_process');
 const os = require('os');
 
-const INITIAL_PORT = 3000;
+const INITIAL_PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 const ROOT_DIR = __dirname;
 
 const MIME_TYPES = {
@@ -160,7 +160,9 @@ function createServer(port) {
         console.log('');
 
         // Automatically launch browser
-        openBrowser(localUrl);
+        if (!process.env.NO_OPEN) {
+            openBrowser(localUrl);
+        }
     });
 
     server.on('error', (err) => {

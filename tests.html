@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Automation Arena - 40 precision-engineered test cases for OrangeHRM demo automation.">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; img-src 'self' data: https://github.com; connect-src 'self' http://localhost:* http://127.0.0.1:* data:;">
     <title>Test Cases - Automation Arena</title>
@@ -44,7 +44,7 @@
             border: 1px solid var(--line);
             border-radius: var(--radius-lg);
             padding: 24px 28px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
             box-shadow: var(--shadow-1);
         }
         .search-box {
@@ -53,7 +53,7 @@
         }
         .search-input {
             width: 100%;
-            padding: 14px 20px 14px 44px;
+            padding: 14px 44px 14px 44px;
             font-size: 15px;
             font-family: inherit;
             border-radius: var(--radius-pill);
@@ -92,6 +92,7 @@
             letter-spacing: 0.05em;
             color: var(--text-muted);
             min-width: 65px;
+            flex-shrink: 0;
         }
         .filter-pill {
             padding: 6px 14px;
@@ -115,7 +116,7 @@
             font-weight: 600;
         }
         
-        /* Stats counter */
+        /* Stats counter & quick actions */
         .stats-bar {
             display: flex;
             justify-content: space-between;
@@ -124,6 +125,14 @@
             margin-bottom: 20px;
             font-size: 14px;
             color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .stats-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
         /* Detail cards inside expansion */
@@ -165,30 +174,151 @@
                 <a href="index.html#rules">Rules</a>
                 <a href="index.html#scoring">Scoring</a>
                 <a href="index.html#faq">FAQ</a>
-                <button class="theme-toggle icon-btn mobile-only-toggle" aria-label="Toggle Theme" aria-pressed="false" style="align-self: flex-start; margin-top: auto;">
-                    <svg class="sun" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <svg class="moon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                </button>
             </div>
             <div class="nav-actions">
-                <button class="theme-toggle icon-btn desktop-only-toggle" aria-label="Toggle Theme" aria-pressed="false">
+                <button class="theme-toggle icon-btn" aria-label="Toggle Theme" aria-pressed="false">
                     <svg class="sun" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                     <svg class="moon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </button>
-                <a href="Automation_Arena_Test_Cases.xlsx" download class="btn pill primary">Download .xlsx</a>
-                <button class="mobile-menu-btn icon-btn" aria-label="Menu" aria-expanded="false">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+                <a href="Automation_Arena_Test_Cases.xlsx" download class="btn pill primary desktop-only-action">Download .xlsx</a>
+                <button class="mobile-menu-btn icon-btn" aria-label="Open Navigation Menu" aria-expanded="false" id="mobile-menu-toggle">
+                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" fill="none"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
                 </button>
             </div>
         </div>
     </nav>
 
+    <!-- Apple Pro Mobile Menu Drawer (Fixed to Viewport, Native iOS Inset Grouped) -->
+    <div id="mobile-menu-drawer" class="mobile-menu-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+        <div class="mobile-drawer-backdrop" id="mobile-drawer-backdrop"></div>
+        <div class="mobile-drawer-sheet">
+            <!-- Apple VisionOS Style Header Bar -->
+            <div class="mobile-drawer-header">
+                <a href="index.html" class="mobile-drawer-brand">
+                    <span>Arena</span>
+                    <span class="apple-status-dot"></span>
+                </a>
+                
+                <div class="apple-header-controls">
+                    <button class="theme-toggle apple-ctrl-btn" aria-label="Toggle Theme" aria-pressed="false">
+                        <svg class="sun" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="moon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <span class="apple-ctrl-divider"></span>
+                    <button class="apple-ctrl-btn mobile-drawer-close" id="mobile-drawer-close" aria-label="Close Navigation">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Apple Inset Grouped Navigation Table -->
+            <div class="mobile-drawer-body">
+                <div class="apple-inset-group">
+                    <a href="index.html#hero" class="apple-list-row" data-nav="hero">
+                        <div class="apple-icon-tile tile-blue">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M13 2L3 14h7v8l10-12h-7l1-8z"/></svg>
+                        </div>
+                        <span class="apple-row-title">Overview</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="index.html#weapons" class="apple-list-row" data-nav="weapons">
+                        <div class="apple-icon-tile tile-indigo">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                        </div>
+                        <span class="apple-row-title">Weapons</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="index.html#powerups" class="apple-list-row" data-nav="powerups">
+                        <div class="apple-icon-tile tile-orange">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <span class="apple-row-title">Power-ups</span>
+                        <div class="apple-row-accessory">
+                            <span class="apple-pill-badge">+40 pts</span>
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="tests.html" class="apple-list-row active" data-nav="tests">
+                        <div class="apple-icon-tile tile-green">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        </div>
+                        <span class="apple-row-title">Test Cases</span>
+                        <div class="apple-row-accessory">
+                            <span class="apple-pill-badge">40 specs</span>
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="index.html#rules" class="apple-list-row" data-nav="rules">
+                        <div class="apple-icon-tile tile-pink">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3" ry="3"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                        </div>
+                        <span class="apple-row-title">Rules & Timeline</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="index.html#scoring" class="apple-list-row" data-nav="scoring">
+                        <div class="apple-icon-tile tile-purple">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        </div>
+                        <span class="apple-row-title">Scoring Rubric</span>
+                        <div class="apple-row-accessory">
+                            <span class="apple-pill-badge">140 pts</span>
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="index.html#faq" class="apple-list-row" data-nav="faq">
+                        <div class="apple-icon-tile tile-gray">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        </div>
+                        <span class="apple-row-title">FAQ</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+
+                    <a href="invite.html" class="apple-list-row" data-nav="invite">
+                        <div class="apple-icon-tile tile-teal">
+                            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <span class="apple-row-title">Invite Builder</span>
+                        <div class="apple-row-accessory">
+                            <svg class="apple-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Apple Style Bottom Actions -->
+                <div class="apple-drawer-actions">
+                    <a href="Automation_Arena_Test_Cases.xlsx" download class="apple-primary-btn">
+                        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        <span>Download Test Cases (.xlsx)</span>
+                    </a>
+                    <a href="index.html" class="apple-tertiary-link">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                        <span>Back to Arena Home</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main id="main">
-        <section class="section" style="padding-top: 140px; padding-bottom: 36px; text-align: center;">
+        <section class="section" style="padding-top: 130px; padding-bottom: 28px; text-align: center;">
             <div class="container" style="max-width: 900px;">
                 <p class="eyebrow fade-up">Competition Specification</p>
                 <h1 class="hero-title-clean fade-up">The Gauntlet.</h1>
-                <p class="subhead fade-up" style="margin: 0 auto; font-size: 19px; color: var(--text-muted); line-height: 1.45; max-width: 680px;">
+                <p class="subhead fade-up" style="margin: 0 auto; font-size: 18px; color: var(--text-muted); line-height: 1.45; max-width: 680px;">
                     40 precision-engineered test cases designed to test the architectural limits of your framework. Click any card to inspect validation goals, pre-conditions, and tips.
                 </p>
             </div>
@@ -201,6 +331,7 @@
                     <div class="search-box">
                         <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <input type="text" id="search-input" class="search-input" placeholder="Search test cases by ID, name, description, module..." autocomplete="off">
+                        <button type="button" id="search-clear-btn" class="search-clear-btn" aria-label="Clear search">✕</button>
                     </div>
 
                     <div class="filter-group" id="module-filters">
@@ -218,11 +349,19 @@
                     </div>
                 </div>
 
-                <!-- Stats summary -->
+                <!-- Stats summary with Expand/Collapse All and Download Actions -->
                 <div class="stats-bar">
-                    <span id="tests-count-display">Showing 40 of 40 test cases</span>
-                    <a href="Automation_Arena_Test_Cases.xlsx" download class="text-link" style="font-size: 13px;">
-                        Download Excel (.xlsx) &darr;
+                    <div class="stats-left">
+                        <span id="tests-count-display">Showing 40 of 40 test cases</span>
+                        <button id="tc-toggle-all" class="btn-text-pill" aria-label="Expand or collapse all test cases">
+                            <span id="tc-toggle-all-icon">⤢</span> <span id="tc-toggle-all-text">Expand All</span>
+                        </button>
+                        <button id="tc-clear-filters-btn" class="btn-text-pill" style="display:none;">
+                            <span>✕ Clear Active Filters</span>
+                        </button>
+                    </div>
+                    <a href="Automation_Arena_Test_Cases.xlsx" download class="btn pill secondary small" style="display: inline-flex; align-items: center; gap: 6px;">
+                        <span>Download Excel (.xlsx)</span> &darr;
                     </a>
                 </div>
 
@@ -241,10 +380,21 @@
         </div>
     </footer>
 
+    <!-- Floating Scroll to Top Button -->
+    <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Scroll to top">
+        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
     <script>
-        // Theme initialization
+        // Theme initialization & Mobile Drawer Controller
         (function() {
             const toggles = document.querySelectorAll('.theme-toggle');
+            const themePills = document.querySelectorAll('[data-set-theme]');
+            const mobileBtn = document.getElementById('mobile-menu-toggle');
+            const drawer = document.getElementById('mobile-menu-drawer');
+            const closeBtn = document.getElementById('mobile-drawer-close');
+            const backdrop = document.getElementById('mobile-drawer-backdrop');
+
             const getStored = () => {
                 try { return localStorage.getItem('theme'); } catch (e) { return null; }
             };
@@ -262,10 +412,19 @@
                         moon.style.display = theme === 'dark' ? 'block' : 'none';
                     }
                 });
+                themePills.forEach(p => {
+                    if (p.getAttribute('data-set-theme') === theme) {
+                        p.classList.add('active');
+                    } else {
+                        p.classList.remove('active');
+                    }
+                });
             };
+
             let current = getStored();
             if (current !== 'dark') current = 'light';
             applyTheme(current);
+
             toggles.forEach(btn => {
                 btn.addEventListener('click', () => {
                     current = current === 'dark' ? 'light' : 'dark';
@@ -274,14 +433,66 @@
                 });
             });
 
-            // Mobile menu toggle
-            const mobileBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
-            if (mobileBtn && navLinks) {
+            themePills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const theme = pill.getAttribute('data-set-theme');
+                    if (theme) {
+                        current = theme;
+                        applyTheme(current);
+                        setStored(current);
+                    }
+                });
+            });
+
+            // Mobile menu drawer
+            const openDrawer = () => {
+                if (!drawer) return;
+                drawer.classList.add('is-open');
+                drawer.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('menu-open');
+                if (mobileBtn) {
+                    mobileBtn.setAttribute('aria-expanded', 'true');
+                    mobileBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" fill="none"><path d="M18 6L6 18M6 6l12 12" /></svg>';
+                }
+            };
+            const closeDrawer = () => {
+                if (!drawer) return;
+                drawer.classList.remove('is-open');
+                drawer.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('menu-open');
+                if (mobileBtn) {
+                    mobileBtn.setAttribute('aria-expanded', 'false');
+                    mobileBtn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.2" fill="none"><path d="M4 6h16M4 12h16M4 18h16" /></svg>';
+                }
+            };
+
+            if (mobileBtn && drawer) {
                 mobileBtn.addEventListener('click', () => {
-                    const expanded = mobileBtn.getAttribute('aria-expanded') === 'true';
-                    mobileBtn.setAttribute('aria-expanded', !expanded);
-                    navLinks.classList.toggle('open');
+                    if (drawer.classList.contains('is-open')) {
+                        closeDrawer();
+                    } else {
+                        openDrawer();
+                    }
+                });
+            }
+            closeBtn?.addEventListener('click', closeDrawer);
+            backdrop?.addEventListener('click', closeDrawer);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && drawer?.classList.contains('is-open')) closeDrawer();
+            });
+
+            // Scroll to Top button
+            const scrollTopBtn = document.getElementById('scroll-top-btn');
+            if (scrollTopBtn) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 350) {
+                        scrollTopBtn.classList.add('is-visible');
+                    } else {
+                        scrollTopBtn.classList.remove('is-visible');
+                    }
+                }, { passive: true });
+                scrollTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 });
             }
         })();
@@ -290,14 +501,20 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const container = document.getElementById('tests-list');
             const searchInput = document.getElementById('search-input');
+            const searchClearBtn = document.getElementById('search-clear-btn');
             const moduleFiltersEl = document.getElementById('module-filters');
             const priorityFiltersEl = document.getElementById('priority-filters');
             const countDisplay = document.getElementById('tests-count-display');
+            const toggleAllBtn = document.getElementById('tc-toggle-all');
+            const toggleAllIcon = document.getElementById('tc-toggle-all-icon');
+            const toggleAllText = document.getElementById('tc-toggle-all-text');
+            const clearFiltersBtn = document.getElementById('tc-clear-filters-btn');
 
             let allTests = [];
             let activeModule = 'all';
             let activePriority = 'all';
             let searchQuery = '';
+            let isAllExpanded = false;
 
             // Load data with fallback
             try {
@@ -348,8 +565,19 @@
                     return true;
                 });
 
+                // Check if any filters are active
+                const hasActiveFilters = activeModule !== 'all' || activePriority !== 'all' || query.length > 0;
+                if (clearFiltersBtn) {
+                    clearFiltersBtn.style.display = hasActiveFilters ? 'inline-flex' : 'none';
+                }
+
                 renderTests(filtered);
                 countDisplay.textContent = `Showing ${filtered.length} of ${allTests.length} test cases`;
+                
+                // Reset expand all state
+                isAllExpanded = false;
+                if (toggleAllText) toggleAllText.textContent = 'Expand All';
+                if (toggleAllIcon) toggleAllIcon.textContent = '⤢';
             }
 
             function renderTests(items) {
@@ -357,9 +585,11 @@
                     container.innerHTML = `
                         <div class="card glass text-center" style="padding: 48px 24px; border-radius: var(--radius-md);">
                             <p style="font-size: 18px; font-weight: 600; margin-bottom: 6px;">No matching test cases found.</p>
-                            <p class="text-muted" style="font-size: 14px; margin: 0;">Try adjusting your keywords or clearing the active filters.</p>
+                            <p class="text-muted" style="font-size: 14px; margin-bottom: 16px;">Try adjusting your keywords or clearing the active filters.</p>
+                            <button id="empty-clear-btn" class="btn pill secondary small">Reset All Filters</button>
                         </div>
                     `;
+                    document.getElementById('empty-clear-btn')?.addEventListener('click', resetAllFilters);
                     return;
                 }
 
@@ -378,6 +608,7 @@
                             <div class="tc-card-header">
                                 <div class="tc-left-col">
                                     <span class="tc-id-badge">${tc.TC_ID}</span>
+                                    <button type="button" class="tc-copy-btn" data-copy="${tc.TC_ID}" title="Copy TC ID" aria-label="Copy ${tc.TC_ID}">Copy</button>
                                     <span class="tc-module-chip">${tc.Module}</span>
                                 </div>
                                 <div class="tc-main-col">
@@ -429,14 +660,66 @@
                         card.classList.toggle('expanded', !isExpanded);
                         card.setAttribute('aria-expanded', !isExpanded);
                     };
-                    card.addEventListener('click', toggle);
+                    card.addEventListener('click', (e) => {
+                        if (e.target.closest('.tc-copy-btn')) return; // Ignore clicks on copy button
+                        toggle();
+                    });
                     card.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
+                            if (e.target.closest('.tc-copy-btn')) return;
                             e.preventDefault();
                             toggle();
                         }
                     });
                 });
+
+                // Copy TC ID buttons
+                container.querySelectorAll('.tc-copy-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = btn.getAttribute('data-copy');
+                        if (id) {
+                            navigator.clipboard.writeText(id);
+                            btn.textContent = 'Copied!';
+                            setTimeout(() => { btn.textContent = 'Copy'; }, 1800);
+                        }
+                    });
+                });
+            }
+
+            // Expand All / Collapse All Toggle
+            if (toggleAllBtn) {
+                toggleAllBtn.addEventListener('click', () => {
+                    const cards = container.querySelectorAll('.tc-card');
+                    isAllExpanded = !isAllExpanded;
+                    cards.forEach(card => {
+                        card.classList.toggle('expanded', isAllExpanded);
+                        card.setAttribute('aria-expanded', isAllExpanded);
+                    });
+                    toggleAllText.textContent = isAllExpanded ? 'Collapse All' : 'Expand All';
+                    toggleAllIcon.textContent = isAllExpanded ? '⤡' : '⤢';
+                });
+            }
+
+            function resetAllFilters() {
+                activeModule = 'all';
+                activePriority = 'all';
+                searchQuery = '';
+                searchInput.value = '';
+                if (searchClearBtn) searchClearBtn.style.display = 'none';
+
+                moduleFiltersEl.querySelectorAll('.filter-pill').forEach(p => {
+                    p.classList.toggle('active', p.dataset.filter === 'all');
+                });
+                priorityFiltersEl.querySelectorAll('.filter-pill').forEach(p => {
+                    p.classList.toggle('active', p.dataset.priority === 'all');
+                });
+
+                filterTests();
+            }
+
+            if (clearFiltersBtn) {
+                clearFiltersBtn.addEventListener('click', resetAllFilters);
             }
 
             // Event Listeners for Filters
@@ -460,8 +743,21 @@
 
             searchInput.addEventListener('input', (e) => {
                 searchQuery = e.target.value;
+                if (searchClearBtn) {
+                    searchClearBtn.style.display = searchQuery.length > 0 ? 'flex' : 'none';
+                }
                 filterTests();
             });
+
+            if (searchClearBtn) {
+                searchClearBtn.addEventListener('click', () => {
+                    searchInput.value = '';
+                    searchQuery = '';
+                    searchClearBtn.style.display = 'none';
+                    searchInput.focus();
+                    filterTests();
+                });
+            }
 
             // Initial render
             filterTests();
